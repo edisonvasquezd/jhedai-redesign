@@ -1,9 +1,6 @@
-import { useRef } from 'react';
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Target, Zap, ShieldCheck, Rocket } from 'lucide-react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, PerspectiveCamera, MeshDistortMaterial, Sphere } from '@react-three/drei';
-import * as THREE from 'three';
 
 const steps = [
     { num: "01", title: "Diagnóstico Exhaustivo", desc: "Analizamos profundamente tus procesos para identificar dónde la IA generará el mayor ROI.", icon: <Target size={18} /> },
@@ -12,49 +9,16 @@ const steps = [
     { num: "04", title: "Impacto y Evolución", desc: "Monitoreamos resultados y refinamos modelos para asegurar un valor sostenible.", icon: <Rocket size={18} /> },
 ];
 
-const MethodologyNode = ({ position, color, speed, distort }: { position: [number, number, number], color: string, speed: number, distort: number }) => {
-    const groupRef = useRef<THREE.Group>(null);
-
-    useFrame(() => {
-        if (!groupRef.current) return;
-        // Subtle follow - move Y based on scroll
-        const scroll = window.scrollY;
-        const targetY = position[1] + (scroll * 0.005);
-        groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, 0.1);
-    });
-
-    return (
-        <group ref={groupRef}>
-            <Float speed={speed} rotationIntensity={2} floatIntensity={2}>
-                <Sphere args={[1.2, 64, 64]} position={position}>
-                    <MeshDistortMaterial
-                        color={color}
-                        speed={speed}
-                        distort={distort}
-                        radius={1}
-                        transparent
-                        opacity={0.4}
-                    />
-                </Sphere>
-            </Float>
-        </group>
-    );
-};
+const MethodologyScene = lazy(() => import('./MethodologyScene'));
 
 const Methodology = () => {
     return (
         <section id="methodology" className="py-32 relative overflow-hidden bg-white">
-            {/* 3D Background Flow */}
+            {/* 3D Background Flow — lazy loaded */}
             <div className="absolute inset-0 z-0 pointer-events-none opacity-50">
-                <Canvas>
-                    <PerspectiveCamera makeDefault position={[0, 0, 12]} />
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} intensity={1} />
-                    <MethodologyNode position={[-9, 4, -5]} color="#003865" speed={2} distort={0.4} />
-                    <MethodologyNode position={[-3, -5, -2]} color="#00A9E0" speed={1.5} distort={0.5} />
-                    <MethodologyNode position={[5, 6, -4]} color="#FF585D" speed={2.5} distort={0.3} />
-                    <MethodologyNode position={[10, -3, -6]} color="#003865" speed={1.8} distort={0.6} />
-                </Canvas>
+                <Suspense fallback={null}>
+                    <MethodologyScene />
+                </Suspense>
             </div>
 
             <div className="container relative z-10">

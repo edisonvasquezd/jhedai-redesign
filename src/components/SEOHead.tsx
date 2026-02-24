@@ -1,0 +1,76 @@
+interface SEOHeadProps {
+    title: string;
+    description: string;
+    canonical?: string;
+    ogType?: string;
+    ogImage?: string;
+    noindex?: boolean;
+    article?: {
+        publishedTime?: string;
+        modifiedTime?: string;
+        section?: string;
+        tags?: string[];
+    };
+    jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const SITE_NAME = 'JhedAi';
+const SITE_URL = 'https://jhedai.com';
+
+const SEOHead = ({
+    title,
+    description,
+    canonical,
+    ogType = 'website',
+    ogImage,
+    noindex = false,
+    article,
+    jsonLd,
+}: SEOHeadProps) => {
+    const fullTitle = `${title} | ${SITE_NAME}`;
+    const canonicalUrl = canonical ? `${SITE_URL}${canonical}` : undefined;
+
+    return (
+        <>
+            <title>{fullTitle}</title>
+            <meta name="description" content={description} />
+            {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+            <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+
+            {/* Open Graph */}
+            <meta property="og:type" content={ogType} />
+            <meta property="og:title" content={fullTitle} />
+            <meta property="og:description" content={description} />
+            <meta property="og:site_name" content={SITE_NAME} />
+            <meta property="og:locale" content="es_CL" />
+            {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+            {ogImage && <meta property="og:image" content={ogImage} />}
+            {ogImage && <meta property="og:image:width" content="1200" />}
+            {ogImage && <meta property="og:image:height" content="630" />}
+
+            {/* Article-specific OG */}
+            {article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
+            {article?.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+            {article?.section && <meta property="article:section" content={article.section} />}
+            {article?.tags?.map((tag, i) => (
+                <meta key={i} property="article:tag" content={tag} />
+            ))}
+
+            {/* Twitter Card */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={fullTitle} />
+            <meta name="twitter:description" content={description} />
+            {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+            {/* JSON-LD */}
+            {jsonLd && (
+                <script type="application/ld+json">
+                    {JSON.stringify(Array.isArray(jsonLd) ? jsonLd : [jsonLd])}
+                </script>
+            )}
+        </>
+    );
+};
+
+export { SITE_NAME, SITE_URL };
+export default SEOHead;

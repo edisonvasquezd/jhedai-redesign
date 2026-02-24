@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
     return (
         <footer className="bg-jhedai-primary text-white border-t border-white/5">
@@ -11,35 +13,38 @@ const Footer = () => {
                             <span className="font-bold text-xl text-white">JhedAi</span>
                         </div>
                         <p className="text-[14px] text-white/50 leading-relaxed max-w-xs">
-                            Inteligencia artificial industrial con precisión técnica y rigor consultivo.
-                            Transformando la operación con tecnología de vanguardia.
+                            Consultora de inteligencia artificial aplicada a la industria y gobierno en Chile.
+                            Metodología propietaria con enfoque en resultados medibles.
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="text-[14px] font-bold text-jhedai-secondary mb-6 uppercase tracking-wider">Soluciones</h4>
+                        <h4 className="text-[14px] font-bold text-jhedai-secondary mb-6 uppercase tracking-wider">Ecosistema</h4>
                         <ul className="space-y-4 text-[14px] text-white/60">
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Agentes de IA</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Modelos CV</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Academy</a></li>
+                            <li><a href="#ecosistema" className="hover:text-jhedai-secondary transition-colors">Agentes Autónomos</a></li>
+                            <li><a href="#ecosistema" className="hover:text-jhedai-secondary transition-colors">Visión Industrial</a></li>
+                            <li><a href="#ecosistema" className="hover:text-jhedai-secondary transition-colors">Academia JhedAi</a></li>
+                            <li><a href="#ecosistema" className="hover:text-jhedai-secondary transition-colors">DeepLab</a></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-[14px] font-bold text-jhedai-secondary mb-6 uppercase tracking-wider">Compañía</h4>
                         <ul className="space-y-4 text-[14px] text-white/60">
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Metodología</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Servicios</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Assessment</a></li>
+                            <li><a href="/#methodology" className="hover:text-jhedai-secondary transition-colors">Metodología</a></li>
+                            <li><a href="/#services" className="hover:text-jhedai-secondary transition-colors">Servicios</a></li>
+                            <li><a href="/#nosotros" className="hover:text-jhedai-secondary transition-colors">Nosotros</a></li>
+                            <li><Link to="/blog" className="hover:text-jhedai-secondary transition-colors">Blog</Link></li>
+                            <li><a href="/#assessment" className="hover:text-jhedai-secondary transition-colors">Assessment</a></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-[14px] font-bold text-jhedai-secondary mb-6 uppercase tracking-wider">Legal</h4>
                         <ul className="space-y-4 text-[14px] text-white/60">
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Privacidad</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Términos</a></li>
-                            <li><a href="#" className="hover:text-jhedai-secondary transition-colors">Contacto</a></li>
+                            <li><Link to="/privacidad" className="hover:text-jhedai-secondary transition-colors">Privacidad</Link></li>
+                            <li><Link to="/terminos" className="hover:text-jhedai-secondary transition-colors">Términos</Link></li>
+                            <li><Link to="/contacto" className="hover:text-jhedai-secondary transition-colors">Contacto</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -47,9 +52,9 @@ const Footer = () => {
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] text-white/40">
                     <p>© {new Date().getFullYear()} JhedAi. Todos los derechos reservados.</p>
                     <div className="flex gap-8">
-                        <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-                        <a href="#" className="hover:text-white transition-colors">Twitter</a>
-                        <a href="#" className="hover:text-white transition-colors">GitHub</a>
+                        <a href="https://www.linkedin.com/company/jhedai/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+                        <a href="https://www.instagram.com/jhedai/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
+                        <a href="https://www.youtube.com/@jhedai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YouTube</a>
                     </div>
                 </div>
             </div>

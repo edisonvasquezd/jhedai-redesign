@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import logoJhedai from '../logo-jhedai.png';
 
 const Navbar = () => {
     return (
@@ -11,16 +13,15 @@ const Navbar = () => {
             <div className="container flex items-center justify-between h-16">
                 <div className="flex items-center gap-8">
                     <a href="/" className="flex items-center gap-2.5 group">
-                        <div className="w-8 h-8 rounded-lg bg-jhedai-primary flex items-center justify-center group-hover:bg-jhedai-secondary transition-all">
-                            <span className="text-white font-bold text-sm">J</span>
-                        </div>
-                        <span className="font-bold text-lg text-jhedai-primary">JhedAi</span>
+                        <img src={logoJhedai} alt="JhedAi" className="h-36 w-auto" />
                     </a>
 
                     <div className="hidden md:flex items-center gap-6 text-[14px] font-medium text-jhedai-primary/70">
-                        <a href="#services" className="hover:text-jhedai-primary transition-colors">Servicios</a>
-                        <a href="#marketplace" className="hover:text-jhedai-primary transition-colors">Marketplace</a>
+                        <Link to="/servicios" className="hover:text-jhedai-primary transition-colors">Servicios</Link>
+                        <a href="#ecosistema" className="hover:text-jhedai-primary transition-colors">Ecosistema</a>
                         <a href="#methodology" className="hover:text-jhedai-primary transition-colors">Metodología</a>
+                        <a href="#nosotros" className="hover:text-jhedai-primary transition-colors">Nosotros</a>
+                        <Link to="/blog" className="hover:text-jhedai-primary transition-colors">Blog</Link>
                         <a href="#assessment" className="hover:text-jhedai-primary transition-colors">Assessment</a>
                     </div>
                 </div>
@@ -29,9 +30,9 @@ const Navbar = () => {
                     <button className="text-[14px] font-medium text-jhedai-primary/60 hover:text-jhedai-primary transition-colors">
                         Log in
                     </button>
-                    <button className="boton-principal">
+                    <Link to="/contacto" className="boton-principal inline-block">
                         Contactar
-                    </button>
+                    </Link>
                 </div>
             </div>
         </motion.nav>

@@ -1,70 +1,37 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import ServiceGrid from './components/ServiceGrid';
-import MarketplaceSection from './components/MarketplaceSection';
-import Methodology from './components/Methodology';
-import Assessment from './components/Assessment';
-import Footer from './components/Footer';
-import { motion, AnimatePresence } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+
+const BlogListPage = lazy(() => import('./pages/BlogListPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const ContactoPage = lazy(() => import('./pages/ContactoPage'));
+const PrivacidadPage = lazy(() => import('./pages/PrivacidadPage'));
+const TerminosPage = lazy(() => import('./pages/TerminosPage'));
+const ServiciosPage = lazy(() => import('./pages/ServiciosPage'));
+
+const PageLoader = () => (
+    <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-jhedai-secondary border-t-transparent rounded-full animate-spin" />
+    </div>
+);
 
 function App() {
-  return (
-    <div className="relative min-h-screen bg-white">
-      <Navbar />
-      <AnimatePresence>
-        <motion.main
-          className="bg-abstract"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Hero />
-          <ServiceGrid />
-
-          {/* Marketplaces */}
-          <MarketplaceSection
-            title="Agent Marketplace"
-            description="Encuentra y despliega agentes de IA especializados para automatizar tus procesos de negocio en minutos."
-            items={[
-              { name: "Customer Service Agent", desc: "Soporte 24/7 con integración multicanal." },
-              { name: "Lead Gen Agent", desc: "Calificación automática de prospectos." },
-              { name: "Doc Analysis Agent", desc: "Extracción de datos críticos de documentos legales." },
-            ]}
-          />
-
-          {/* Section divider */}
-          <div className="container"><div className="h-px bg-jhedai-neutral/20" /></div>
-
-          <MarketplaceSection
-            title="CV Models Marketplace"
-            description="Modelos de visión computacional pre-entrenados para la industria, listos para implementar."
-            items={[
-              { name: "Defect Detector", desc: "Identificación de fallas en líneas de producción." },
-              { name: "Safety Watcher", desc: "Monitoreo de EPP y seguridad industrial." },
-              { name: "Stock Tracker", desc: "Control de inventario por reconocimiento visual." },
-            ]}
-          />
-
-          {/* Section divider */}
-          <div className="container"><div className="h-px bg-jhedai-neutral/20" /></div>
-
-          <MarketplaceSection
-            title="Academy Marketplace"
-            description="Capacitación especializada en IA para equipos de alto desempeño."
-            items={[
-              { name: "AI Strategy for C-Level", desc: "Liderazgo en la era de la inteligencia artificial." },
-              { name: "Prompt Engineering Workshop", desc: "Optimización de flujo de trabajo con LLMs." },
-              { name: "Applied Machine Learning", desc: "Desarrollo de soluciones prácticas." },
-            ]}
-          />
-
-          <Methodology />
-          <Assessment />
-        </motion.main>
-      </AnimatePresence>
-      <Footer />
-    </div>
-  );
+    return (
+        <Suspense fallback={<PageLoader />}>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/servicios" element={<ServiciosPage />} />
+                    <Route path="/blog" element={<BlogListPage />} />
+                    <Route path="/blog/:slug" element={<BlogPostPage />} />
+                    <Route path="/contacto" element={<ContactoPage />} />
+                    <Route path="/privacidad" element={<PrivacidadPage />} />
+                    <Route path="/terminos" element={<TerminosPage />} />
+                </Route>
+            </Routes>
+        </Suspense>
+    );
 }
 
 export default App;

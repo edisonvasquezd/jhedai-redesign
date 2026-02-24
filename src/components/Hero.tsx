@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import HeroTorus from './HeroTorus';
 
 const Hero = () => {
     return (
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20 bg-white">
+        <section className="relative min-h-[90vh] flex items-center pt-20 bg-white">
             {/* Ambient background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]">
@@ -15,10 +16,18 @@ const Hero = () => {
                 </div>
             </div>
 
+            {/* 3D Visual - absolute overlay on the right half of the section */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 lg:left-[40%] opacity-30 lg:opacity-100 pointer-events-none z-[1] overflow-visible"
+            >
+                <HeroTorus />
+            </motion.div>
+
             <div className="container relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
-                    {/* Left - Text */}
-                    <div className="lg:w-1/2 text-center lg:text-left">
+                <div className="lg:w-1/2 text-center lg:text-left">
                         {/* Badge */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +39,7 @@ const Hero = () => {
                                 <span className="animate-ping absolute h-full w-full rounded-full bg-jhedai-secondary opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-jhedai-secondary" />
                             </span>
-                            Especialistas en IA Industrial
+                            Consultora IA en Chile
                         </motion.div>
 
                         {/* Headline */}
@@ -40,11 +49,11 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             className="text-4xl sm:text-5xl lg:text-[64px] xl:text-[72px] font-bold leading-[1.1] tracking-tight mb-8"
                         >
-                            <span className="text-jhedai-primary">Infraestructura</span>
+                            <span className="text-jhedai-primary">IA Aplicada</span>
                             <br />
-                            <span className="text-gradient">Cognitiva</span>
+                            <span className="text-gradient">para la</span>
                             <br />
-                            <span className="text-jhedai-secondary">Precisión Industrial.</span>
+                            <span className="text-jhedai-secondary">Industria.</span>
                         </motion.h1>
 
                         {/* Subtitle */}
@@ -54,8 +63,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.6 }}
                             className="text-base sm:text-lg text-jhedai-primary/60 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed"
                         >
-                            Desarrollamos soluciones de IA que integran visión computacional avanzada
-                            y agentes autónomos en el núcleo de tu operación industrial.
+                            Diagnóstico, implementación y capacitación en inteligencia artificial.
                         </motion.p>
 
                         {/* CTAs */}
@@ -65,25 +73,14 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.8 }}
                             className="flex flex-wrap justify-center lg:justify-start gap-4"
                         >
-                            <button className="boton-principal inline-flex items-center gap-2">
-                                Empieza ahora
+                            <Link to="/contacto" className="boton-principal inline-flex items-center gap-2">
+                                Agendar consulta
                                 <ChevronRight size={16} />
-                            </button>
-                            <button className="boton-secundario">
-                                Ver casos de éxito
-                            </button>
+                            </Link>
+                            <a href="/#services" className="boton-secundario inline-block">
+                                Conocer servicios
+                            </a>
                         </motion.div>
-                    </div>
-
-                    {/* Right - Visual */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:w-1/2 h-[450px] sm:h-[550px] lg:h-[650px] relative"
-                    >
-                        <HeroTorus />
-                    </motion.div>
                 </div>
 
                 {/* Trust bar */}
@@ -91,7 +88,7 @@ const Hero = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.4, duration: 1 }}
-                    className="mt-12 lg:mt-0 pt-12 border-t border-jhedai-neutral/30"
+                    className="mt-20 lg:mt-16 pt-12 border-t border-jhedai-neutral/30"
                 >
                     <p className="text-[14px] font-semibold text-jhedai-primary/40 mb-6 tracking-wide text-center lg:text-left">
                         Empresas que potencian su operación con JhedAi

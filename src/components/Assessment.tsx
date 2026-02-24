@@ -61,7 +61,7 @@ const Assessment = () => {
                             transition={{ delay: 0.5 }}
                             className="flex flex-wrap justify-center gap-4"
                         >
-                            <button className="group bg-jhedai-accent text-white px-8 py-3.5 rounded-lg font-bold text-[16px] hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-xl shadow-jhedai-accent/30">
+                            <button className="group bg-jhedai-primary text-white px-8 py-3.5 rounded-lg font-bold text-[16px] hover:brightness-125 transition-all inline-flex items-center gap-2 shadow-xl shadow-jhedai-primary/30">
                                 Iniciar Assessment
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </button>

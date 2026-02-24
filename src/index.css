@@ -43,7 +43,7 @@
   }
 
   .boton-principal {
-    @apply bg-jhedai-accent text-white px-6 py-2.5 rounded-md font-bold transition-all duration-300 hover:brightness-110 active:scale-95 shadow-lg shadow-jhedai-accent/20;
+    @apply bg-jhedai-primary text-white px-6 py-2.5 rounded-md font-bold transition-all duration-300 hover:brightness-125 active:scale-95 shadow-lg shadow-jhedai-primary/20;
   }
 
   .boton-secundario {
@@ -83,3 +83,21 @@
   background-color: var(--color-primario);
   color: var(--blanco);
 }
+
+/* Blog prose styles */
+.prose h2 { @apply text-2xl font-bold text-jhedai-primary mt-10 mb-4; }
+.prose h3 { @apply text-xl font-bold text-jhedai-primary mt-8 mb-3; }
+.prose p { @apply text-[16px] text-jhedai-primary/70 leading-relaxed mb-4; }
+.prose ul { @apply list-disc pl-6 mb-4 space-y-2 text-jhedai-primary/70; }
+.prose ol { @apply list-decimal pl-6 mb-4 space-y-2 text-jhedai-primary/70; }
+.prose li { @apply text-[16px] leading-relaxed; }
+.prose blockquote { @apply border-l-4 border-jhedai-secondary pl-4 italic text-jhedai-primary/60 my-6; }
+.prose img { @apply rounded-xl my-6 w-full; }
+.prose table { @apply w-full border-collapse my-6 text-[15px]; }
+.prose th { @apply text-left font-bold text-jhedai-primary p-3 border-b-2 border-jhedai-neutral/30; }
+.prose td { @apply p-3 border-b border-jhedai-neutral/20 text-jhedai-primary/70; }
+.prose code { @apply bg-jhedai-primary/5 px-1.5 py-0.5 rounded text-sm font-mono; }
+.prose pre { @apply bg-jhedai-primary rounded-xl p-6 overflow-x-auto my-6; }
+.prose pre code { @apply bg-transparent text-white text-sm p-0; }
+.prose a { @apply text-jhedai-secondary underline underline-offset-2 hover:text-jhedai-primary transition-colors; }
+.prose strong { @apply font-bold text-jhedai-primary; }
