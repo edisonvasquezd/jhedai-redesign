@@ -224,7 +224,7 @@ const ServiciosPage = () => {
                                 SERVICIOS
                             </p>
                             <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
-                                Soluciones de Inteligencia Artificial
+                                Tecnologías de Inteligencia Artificial
                             </h1>
                             <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
                                 Tecnologías avanzadas de IA para transformar datos en valor estratégico.
