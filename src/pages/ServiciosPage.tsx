@@ -10,108 +10,128 @@ import {
     ShoppingCart,
     GraduationCap,
     ExternalLink,
-    Zap,
-    Target,
+    ArrowRight,
+    Database,
+    Cpu,
+    Sparkles,
     TrendingUp,
-    Shield,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
+import ServiceFlowDiagram from '../components/ServiceFlowDiagram';
 
 interface Service {
+    id: string;
     icon: React.ReactNode;
     title: string;
     desc: string;
     benefits: string[];
     gradient: string;
     category: string;
-    featured?: boolean;
+    flowType: 'linear' | 'branching' | 'circular' | 'hierarchical';
+    flowSteps: string[];
 }
 
 const services: Service[] = [
     {
-        icon: <BarChart3 size={40} strokeWidth={1.5} />,
+        id: 'analisis-datos',
+        icon: <BarChart3 size={48} strokeWidth={1.5} />,
         title: 'Análisis de Datos',
         desc: 'Transformamos datos brutos en insights accionables mediante análisis estadístico avanzado, minería de datos y modelado predictivo que impulsa decisiones estratégicas.',
         benefits: [
             'Dashboards interactivos en tiempo real',
-            'Detección automática de patrones y tendencias',
-            'Modelado estadístico y forecasting',
-            'Visualización avanzada de datos complejos',
+            'Detección automática de patrones',
+            'Modelado estadístico avanzado',
+            'Visualización de datos complejos',
         ],
         gradient: 'from-blue-500 via-cyan-500 to-blue-600',
         category: 'Data',
-        featured: true,
+        flowType: 'linear',
+        flowSteps: ['Recolección', 'Limpieza', 'Análisis', 'Visualización', 'Insights'],
     },
     {
-        icon: <Brain size={40} strokeWidth={1.5} />,
+        id: 'machine-learning',
+        icon: <Brain size={48} strokeWidth={1.5} />,
         title: 'Machine Learning',
         desc: 'Desarrollo de modelos de ML personalizados para clasificación, regresión, clustering y forecasting con aprendizaje supervisado y no supervisado de última generación.',
         benefits: [
             'Modelos predictivos de alta precisión',
-            'Sistemas de recomendación inteligentes',
-            'Detección de anomalías en tiempo real',
-            'AutoML y optimización de hiperparámetros',
+            'Sistemas de recomendación',
+            'Detección de anomalías',
+            'AutoML y optimización',
         ],
         gradient: 'from-purple-500 via-pink-500 to-red-500',
         category: 'AI',
-        featured: true,
+        flowType: 'branching',
+        flowSteps: ['Datos', 'Entrenamiento', 'Supervisado', 'No Supervisado', 'Predicción'],
     },
     {
-        icon: <PieChart size={40} strokeWidth={1.5} />,
+        id: 'business-intelligence',
+        icon: <PieChart size={48} strokeWidth={1.5} />,
         title: 'Business Intelligence',
         desc: 'Soluciones empresariales de BI con reporting interactivo, seguimiento de KPIs en tiempo real y analítica estratégica para liderazgo basado en datos.',
         benefits: [
             'Dashboards ejecutivos personalizados',
-            'Reporting automatizado y alertas',
+            'Reporting automatizado',
             'Data warehousing y ETL',
-            'Analítica self-service para equipos',
+            'Analítica self-service',
         ],
         gradient: 'from-green-500 via-emerald-500 to-teal-500',
         category: 'Data',
+        flowType: 'circular',
+        flowSteps: ['Fuentes', 'ETL', 'Warehouse', 'BI', 'Decisiones'],
     },
     {
-        icon: <MessageSquare size={40} strokeWidth={1.5} />,
+        id: 'nlp',
+        icon: <MessageSquare size={48} strokeWidth={1.5} />,
         title: 'Procesamiento de Lenguaje Natural',
         desc: 'Análisis avanzado de texto, detección de sentimiento, extracción de entidades y desarrollo de IA conversacional usando transformers y LLMs de última generación.',
         benefits: [
             'Clasificación de texto multilingüe',
-            'Análisis de sentimiento y emociones',
-            'Extracción de información y entidades',
+            'Análisis de sentimiento',
+            'Extracción de entidades',
             'Chatbots y asistentes virtuales',
         ],
         gradient: 'from-orange-500 via-amber-500 to-yellow-500',
         category: 'AI',
+        flowType: 'linear',
+        flowSteps: ['Texto', 'Tokenización', 'Embeddings', 'Modelo', 'Respuesta'],
     },
     {
-        icon: <Eye size={40} strokeWidth={1.5} />,
+        id: 'computer-vision',
+        icon: <Eye size={48} strokeWidth={1.5} />,
         title: 'Computer Vision',
         desc: 'Reconocimiento de imágenes, detección de objetos, control de calidad visual y sistemas de inspección automatizada para industria y retail.',
         benefits: [
             'Detección y tracking de objetos',
-            'Clasificación de imágenes con CNNs',
-            'Inspección de calidad automatizada',
-            'Reconocimiento facial y biométrico',
+            'Clasificación de imágenes CNN',
+            'Inspección de calidad',
+            'Reconocimiento facial',
         ],
         gradient: 'from-indigo-500 via-purple-500 to-pink-500',
         category: 'AI',
-        featured: true,
+        flowType: 'hierarchical',
+        flowSteps: ['Imagen', 'CNN', 'Features', 'Detección', 'Resultado'],
     },
     {
-        icon: <Workflow size={40} strokeWidth={1.5} />,
+        id: 'automatizaciones',
+        icon: <Workflow size={48} strokeWidth={1.5} />,
         title: 'Automatizaciones y Agentes',
         desc: 'Desarrollo de agentes autónomos de IA y automatización de workflows para optimización de procesos de negocio y orquestación inteligente de tareas complejas.',
         benefits: [
             'RPA con inteligencia artificial',
             'Agentes autónomos multi-objetivo',
-            'Optimización de procesos end-to-end',
+            'Optimización de procesos',
             'Integración con sistemas legacy',
         ],
         gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
         category: 'Automation',
+        flowType: 'branching',
+        flowSteps: ['Trigger', 'Análisis', 'Acción 1', 'Acción 2', 'Resultado'],
     },
     {
-        icon: <FlaskConical size={40} strokeWidth={1.5} />,
+        id: 'data-science',
+        icon: <FlaskConical size={48} strokeWidth={1.5} />,
         title: 'Data Science',
         desc: 'Ciclo completo de data science desde formulación de hipótesis hasta deployment en producción, incluyendo experimentación rigurosa y validación de modelos.',
         benefits: [
@@ -122,13 +142,15 @@ const services: Service[] = [
         ],
         gradient: 'from-rose-500 via-red-500 to-orange-500',
         category: 'Data',
+        flowType: 'circular',
+        flowSteps: ['Hipótesis', 'Experimento', 'Análisis', 'Modelo', 'Deploy'],
     },
 ];
 
 const externalPlatforms = [
     {
         name: 'Marketplace de Agentes',
-        desc: 'Explora nuestro catálogo de agentes autónomos listos para implementar en tu empresa',
+        desc: 'Explora nuestro catálogo de agentes autónomos listos para implementar',
         icon: <ShoppingCart size={28} />,
         url: '#',
         badge: 'Ecosistema',
@@ -144,7 +166,7 @@ const externalPlatforms = [
     },
     {
         name: 'Visión Industrial',
-        desc: 'Soluciones completas de computer vision para la industria chilena',
+        desc: 'Soluciones completas de computer vision para la industria',
         icon: <Eye size={28} />,
         url: '#',
         badge: 'Ecosistema',
@@ -152,26 +174,26 @@ const externalPlatforms = [
     },
 ];
 
-const benefits = [
+const pillars = [
     {
-        icon: <Zap size={24} />,
-        title: 'Implementación Rápida',
-        desc: 'Metodología ágil que garantiza resultados en semanas, no meses.',
+        icon: <Database size={32} />,
+        title: 'Data-Driven',
+        desc: 'Decisiones basadas en datos verificables',
     },
     {
-        icon: <Target size={24} />,
-        title: 'ROI Demostrable',
-        desc: 'Métricas claras y KPIs medibles desde el día uno.',
+        icon: <Cpu size={32} />,
+        title: 'IA Avanzada',
+        desc: 'Tecnologías de última generación',
     },
     {
-        icon: <TrendingUp size={24} />,
-        title: 'Escalabilidad',
-        desc: 'Soluciones diseñadas para crecer con tu negocio.',
+        icon: <Sparkles size={32} />,
+        title: 'Innovación',
+        desc: 'Metodología propietaria comprobada',
     },
     {
-        icon: <Shield size={24} />,
-        title: 'Soporte Continuo',
-        desc: 'Acompañamiento técnico durante y después de la implementación.',
+        icon: <TrendingUp size={32} />,
+        title: 'Resultados',
+        desc: 'ROI medible desde el día uno',
     },
 ];
 
@@ -182,20 +204,11 @@ const ServiciosPage = () => {
                 title="Servicios de IA | Machine Learning, NLP, Computer Vision"
                 description="Soluciones tecnológicas de inteligencia artificial: análisis de datos, machine learning, business intelligence, NLP, computer vision, automatización y data science."
                 canonical="/servicios"
-                jsonLd={{
-                    '@context': 'https://schema.org',
-                    '@type': 'Service',
-                    name: 'Servicios de Inteligencia Artificial',
-                    provider: {
-                        '@type': 'Organization',
-                        name: 'JhedAi',
-                    },
-                }}
             />
 
             <div className="pt-28 pb-24 bg-white">
                 {/* Hero Section */}
-                <div className="relative bg-gradient-to-br from-jhedai-primary via-jhedai-primary to-jhedai-secondary py-32 overflow-hidden mb-24">
+                <div className="relative bg-gradient-to-br from-jhedai-primary via-jhedai-primary to-jhedai-secondary py-24 overflow-hidden mb-16">
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:64px_64px]" />
                     </div>
@@ -214,113 +227,127 @@ const ServiciosPage = () => {
                                 Soluciones de Inteligencia Artificial
                             </h1>
                             <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-                                Tecnologías avanzadas de IA para transformar datos en valor estratégico. Desde
-                                análisis hasta deployment, soluciones diseñadas para la complejidad industrial
-                                real.
+                                Tecnologías avanzadas de IA para transformar datos en valor estratégico.
                             </p>
                         </motion.div>
                     </div>
                 </div>
 
                 <div className="container">
-                    {/* Benefits Bar */}
+                    {/* Pillars */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24"
+                        className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-24"
                     >
-                        {benefits.map((benefit, i) => (
-                            <div
+                        {pillars.map((pillar, i) => (
+                            <motion.div
                                 key={i}
-                                className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50/30 border border-jhedai-neutral/20"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.1 + 0.3 }}
+                                className="group text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50/30 border border-jhedai-neutral/20 hover:border-jhedai-secondary/40 hover:shadow-lg transition-all duration-300"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary mx-auto mb-3">
-                                    {benefit.icon}
+                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-jhedai-secondary/10 to-jhedai-primary/5 flex items-center justify-center text-jhedai-secondary mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    {pillar.icon}
                                 </div>
                                 <h3 className="font-bold text-jhedai-primary mb-1 text-sm">
-                                    {benefit.title}
+                                    {pillar.title}
                                 </h3>
-                                <p className="text-xs text-jhedai-primary/60">{benefit.desc}</p>
-                            </div>
+                                <p className="text-xs text-jhedai-primary/60">{pillar.desc}</p>
+                            </motion.div>
                         ))}
                     </motion.div>
 
-                    {/* Services Grid */}
-                    <div className="mb-24">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="text-center mb-16"
-                        >
-                            <p className="text-[14px] text-jhedai-secondary font-bold tracking-widest mb-4">
-                                TECNOLOGÍAS
-                            </p>
-                            <h2 className="text-3xl lg:text-4xl font-bold text-jhedai-primary mb-4">
-                                Nuestras Especialidades
-                            </h2>
-                            <p className="text-jhedai-primary/60 text-lg max-w-2xl mx-auto">
-                                Servicios diseñados para generar impacto medible en tu negocio
-                            </p>
-                        </motion.div>
+                    {/* Services - Zigzag Layout */}
+                    <div className="mb-24 space-y-32">
+                        {services.map((service, i) => {
+                            const isLeft = i % 2 === 0;
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {services.map((service, i) => (
+                            return (
                                 <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 30 }}
+                                    key={service.id}
+                                    initial={{ opacity: 0, y: 60 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: '-50px' }}
-                                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                                    className={`group relative bg-white rounded-2xl overflow-hidden border border-jhedai-neutral/20 hover:border-jhedai-secondary/30 hover:shadow-2xl transition-all duration-300 ${
-                                        service.featured ? 'md:col-span-2 lg:col-span-1' : ''
-                                    }`}
+                                    viewport={{ once: true, margin: '-100px' }}
+                                    transition={{ duration: 0.7, delay: 0.1 }}
+                                    className={`flex flex-col ${
+                                        isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                                    } gap-12 items-center`}
                                 >
-                                    {/* Gradient header */}
-                                    <div
-                                        className={`relative h-40 bg-gradient-to-br ${service.gradient} overflow-hidden`}
-                                    >
-                                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="text-white group-hover:scale-110 transition-transform duration-300">
-                                                {service.icon}
-                                            </div>
-                                        </div>
-                                        {/* Category badge */}
-                                        <div className="absolute top-4 right-4">
-                                            <span className="text-xs bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full font-bold">
+                                    {/* Content Side */}
+                                    <div className="lg:w-1/2 space-y-6">
+                                        <div>
+                                            <span className="inline-block text-xs font-bold tracking-widest text-jhedai-secondary mb-3 bg-jhedai-secondary/10 px-3 py-1 rounded-full">
                                                 {service.category}
                                             </span>
+                                            <div className={`flex items-center gap-4 mb-4 ${!isLeft ? 'lg:flex-row-reverse' : ''}`}>
+                                                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-xl shrink-0`}>
+                                                    {service.icon}
+                                                </div>
+                                                <h2 className="text-3xl lg:text-4xl font-bold text-jhedai-primary">
+                                                    {service.title}
+                                                </h2>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* Content */}
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-jhedai-primary mb-3 group-hover:text-jhedai-secondary transition-colors">
-                                            {service.title}
-                                        </h3>
-                                        <p className="text-[15px] text-jhedai-primary/70 leading-relaxed mb-4">
+                                        <p className="text-lg text-jhedai-primary/70 leading-relaxed">
                                             {service.desc}
                                         </p>
 
-                                        {/* Benefits */}
-                                        <ul className="space-y-2">
-                                            {service.benefits.slice(0, 3).map((benefit, idx) => (
-                                                <li
+                                        <div className="space-y-3">
+                                            {service.benefits.map((benefit, idx) => (
+                                                <motion.div
                                                     key={idx}
-                                                    className="flex items-start gap-2 text-[13px] text-jhedai-primary/60"
+                                                    initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ delay: idx * 0.1 + 0.3 }}
+                                                    className="flex items-center gap-3 group"
                                                 >
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-jhedai-secondary mt-1.5 shrink-0" />
-                                                    <span>{benefit}</span>
-                                                </li>
+                                                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-jhedai-secondary to-jhedai-primary shrink-0 group-hover:scale-150 transition-transform" />
+                                                    <span className="text-jhedai-primary/80 group-hover:text-jhedai-primary transition-colors">
+                                                        {benefit}
+                                                    </span>
+                                                </motion.div>
                                             ))}
-                                        </ul>
+                                        </div>
+
+                                        <Link
+                                            to="/contacto"
+                                            className={`inline-flex items-center gap-2 bg-gradient-to-r ${service.gradient} text-white px-6 py-3 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 group`}
+                                        >
+                                            Solicitar información
+                                            <ArrowRight
+                                                size={18}
+                                                className="group-hover:translate-x-1 transition-transform"
+                                            />
+                                        </Link>
+                                    </div>
+
+                                    {/* Flow Diagram Side */}
+                                    <div className="lg:w-1/2">
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.6, delay: 0.2 }}
+                                            className="relative"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-br from-jhedai-primary/5 to-jhedai-secondary/5 rounded-3xl blur-2xl" />
+                                            <div className="relative glass-card p-8 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm">
+                                                <ServiceFlowDiagram
+                                                    steps={service.flowSteps}
+                                                    type={service.flowType}
+                                                    gradient={service.gradient}
+                                                />
+                                            </div>
+                                        </motion.div>
                                     </div>
                                 </motion.div>
-                            ))}
-                        </div>
+                            );
+                        })}
                     </div>
 
                     {/* External Platforms Section */}
@@ -337,9 +364,6 @@ const ServiciosPage = () => {
                         <h2 className="text-3xl lg:text-4xl font-bold text-jhedai-primary mb-4">
                             Explora Nuestras Plataformas
                         </h2>
-                        <p className="text-jhedai-primary/60 text-lg max-w-2xl mx-auto leading-relaxed">
-                            Accede a nuestro ecosistema de productos especializados y capacitaciones certificadas
-                        </p>
                     </motion.div>
 
                     <div className="grid md:grid-cols-3 gap-6 mb-24">
