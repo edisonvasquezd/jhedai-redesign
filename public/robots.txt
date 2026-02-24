@@ -1,23 +1,65 @@
-User-agent: *
+# Crawlers principales
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
 Allow: /
 
-# Permitir buscadores IA
+# AI Crawlers - Optimizado para posicionamiento en AI
 User-agent: GPTBot
-Allow: /
-
 User-agent: ChatGPT-User
 Allow: /
+Allow: /blog/
+Allow: /servicios/
+Allow: /nosotros/
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 2
 
-User-agent: CCBot
-Allow: /
-
+User-agent: Claude-Web
 User-agent: anthropic-ai
 Allow: /
+Allow: /blog/
+Allow: /servicios/
+Allow: /nosotros/
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
 
 User-agent: Google-Extended
 Allow: /
+Allow: /blog/
+Allow: /servicios/
+Disallow: /admin/
+Crawl-delay: 1
 
-User-agent: Claude-Web
+User-agent: PerplexityBot
+User-agent: YouBot
 Allow: /
+Allow: /blog/
+Allow: /servicios/
+Disallow: /admin/
+Crawl-delay: 1
 
+User-agent: CCBot
+Allow: /
+Allow: /blog/
+Disallow: /admin/
+
+# Bloquear crawlers malintencionados
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
+
+# Reglas generales
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Crawl-delay: 1
+
+# Sitemap
 Sitemap: https://jhedai.com/sitemap.xml

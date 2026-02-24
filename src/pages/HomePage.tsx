@@ -10,6 +10,7 @@ import Blog from '../components/Blog';
 import Assessment from '../components/Assessment';
 import SEOHead from '../components/SEOHead';
 import ParticleSphere from '../components/ParticleSphere';
+import { OrganizationSchema } from '../components/schemas/OrganizationSchema';
 
 const HomePage = () => {
     return (
@@ -18,27 +19,8 @@ const HomePage = () => {
                 title="Consultora de Inteligencia Artificial en Chile"
                 description="Diagnóstico, implementación y capacitación en inteligencia artificial para la industria y gobierno en Chile."
                 canonical="/"
-                jsonLd={[
-                    {
-                        "@context": "https://schema.org",
-                        "@type": "Organization",
-                        "name": "JhedAi",
-                        "url": "https://jhedai.com",
-                        "description": "Consultora de inteligencia artificial aplicada a la industria y gobierno en Chile.",
-                        "sameAs": [
-                            "https://www.linkedin.com/company/jhedai/",
-                            "https://www.instagram.com/jhedai/",
-                            "https://www.youtube.com/@jhedai"
-                        ]
-                    },
-                    {
-                        "@context": "https://schema.org",
-                        "@type": "WebSite",
-                        "name": "JhedAi",
-                        "url": "https://jhedai.com"
-                    }
-                ]}
             />
+            <OrganizationSchema />
             <main className="bg-abstract">
                 <Hero />
                 <ServiceGrid />

@@ -1,9 +1,12 @@
+import { Helmet } from 'react-helmet-async';
+
 interface SEOHeadProps {
     title: string;
     description: string;
     canonical?: string;
     ogType?: string;
     ogImage?: string;
+    twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player';
     noindex?: boolean;
     article?: {
         publishedTime?: string;
@@ -16,13 +19,15 @@ interface SEOHeadProps {
 
 const SITE_NAME = 'JhedAi';
 const SITE_URL = 'https://jhedai.com';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 const SEOHead = ({
     title,
     description,
     canonical,
     ogType = 'website',
-    ogImage,
+    ogImage = DEFAULT_OG_IMAGE,
+    twitterCard = 'summary_large_image',
     noindex = false,
     article,
     jsonLd,
@@ -31,7 +36,8 @@ const SEOHead = ({
     const canonicalUrl = canonical ? `${SITE_URL}${canonical}` : undefined;
 
     return (
-        <>
+        <Helmet>
+            {/* Basic Meta Tags */}
             <title>{fullTitle}</title>
             <meta name="description" content={description} />
             {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
@@ -44,9 +50,10 @@ const SEOHead = ({
             <meta property="og:site_name" content={SITE_NAME} />
             <meta property="og:locale" content="es_CL" />
             {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-            {ogImage && <meta property="og:image" content={ogImage} />}
-            {ogImage && <meta property="og:image:width" content="1200" />}
-            {ogImage && <meta property="og:image:height" content="630" />}
+            <meta property="og:image" content={ogImage} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content={title} />
 
             {/* Article-specific OG */}
             {article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
@@ -57,10 +64,16 @@ const SEOHead = ({
             ))}
 
             {/* Twitter Card */}
-            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:card" content={twitterCard} />
             <meta name="twitter:title" content={fullTitle} />
             <meta name="twitter:description" content={description} />
-            {ogImage && <meta name="twitter:image" content={ogImage} />}
+            <meta name="twitter:image" content={ogImage} />
+            <meta name="twitter:image:alt" content={title} />
+
+            {/* Additional SEO Tags */}
+            <meta name="language" content="Spanish" />
+            <meta httpEquiv="content-language" content="es-CL" />
+            <link rel="icon" href="/favicon.ico" />
 
             {/* JSON-LD */}
             {jsonLd && (
@@ -68,7 +81,7 @@ const SEOHead = ({
                     {JSON.stringify(Array.isArray(jsonLd) ? jsonLd : [jsonLd])}
                 </script>
             )}
-        </>
+        </Helmet>
     );
 };
 
