@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
+import 'reactflow/dist/style.css'
 import App from './App.tsx'
 import { initVitals } from './utils/vitals'
 
