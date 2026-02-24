@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Clock, ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
+import { submitContactForm } from '../lib/apiClient';
 
 const servicios = [
     'Consultoría Estratégica',
@@ -21,11 +22,42 @@ const contactInfo = [
 
 const ContactoPage = () => {
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Placeholder — integración con API se hace después
-        setSubmitted(true);
+        setLoading(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            nombre: formData.get('nombre') as string,
+            email: formData.get('email') as string,
+            empresa: formData.get('empresa') as string,
+            telefono: formData.get('telefono') as string,
+            servicio: formData.get('servicio') as string,
+            mensaje: formData.get('mensaje') as string,
+        };
+
+        try {
+            const response = await submitContactForm(data);
+
+            if (response.success) {
+                setSubmitted(true);
+            } else {
+                setError(response.error || 'Error al enviar el mensaje. Por favor intenta nuevamente.');
+            }
+        } catch (err) {
+            console.error('Error submitting form:', err);
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : 'Error al enviar el mensaje. Por favor intenta nuevamente.'
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     const inputClasses = "w-full bg-white border border-jhedai-neutral/30 rounded-xl px-4 py-3 text-[15px] text-jhedai-primary placeholder:text-jhedai-primary/30 focus:border-jhedai-secondary focus:ring-2 focus:ring-jhedai-secondary/20 outline-none transition-all";
@@ -129,8 +161,18 @@ const ContactoPage = () => {
                                         </Link>
                                     </motion.div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                        <div>
+                                    <>
+                                        {error && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl"
+                                            >
+                                                <p className="text-sm text-red-600">{error}</p>
+                                            </motion.div>
+                                        )}
+                                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                            <div>
                                             <label className="text-[14px] font-medium text-jhedai-primary mb-1.5 block">
                                                 Nombre <span className="text-jhedai-accent">*</span>
                                             </label>
@@ -194,11 +236,17 @@ const ContactoPage = () => {
                                             />
                                         </div>
                                         <div className="md:col-span-2">
-                                            <button type="submit" className="boton-principal w-full py-3.5 inline-flex items-center justify-center gap-2 text-[16px]">
-                                                Enviar mensaje <ArrowRight size={18} />
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="boton-principal w-full py-3.5 inline-flex items-center justify-center gap-2 text-[16px] disabled:opacity-50 disabled:cursor-not-allowed"
+                                            >
+                                                {loading ? 'Enviando...' : 'Enviar mensaje'}{' '}
+                                                {!loading && <ArrowRight size={18} />}
                                             </button>
                                         </div>
                                     </form>
+                                    </>
                                 )}
                             </div>
                         </motion.div>
