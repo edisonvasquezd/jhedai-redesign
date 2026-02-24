@@ -5,7 +5,7 @@ import VisionIndustrial from '../components/VisionIndustrial';
 import AcademiaJhedai from '../components/AcademiaJhedai';
 import DeepLab from '../components/DeepLab';
 import Methodology from '../components/Methodology';
-import Nosotros from '../components/Nosotros';
+import NosotrosSimple from '../components/NosotrosSimple';
 import Blog from '../components/Blog';
 import Assessment from '../components/Assessment';
 import SEOHead from '../components/SEOHead';
@@ -58,7 +58,7 @@ const HomePage = () => {
                 </div>
 
                 <Methodology />
-                <Nosotros />
+                <NosotrosSimple />
                 <Blog />
                 <Assessment />
             </main>

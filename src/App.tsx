@@ -9,6 +9,7 @@ const ContactoPage = lazy(() => import('./pages/ContactoPage'));
 const PrivacidadPage = lazy(() => import('./pages/PrivacidadPage'));
 const TerminosPage = lazy(() => import('./pages/TerminosPage'));
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage'));
+const NosotrosPage = lazy(() => import('./pages/NosotrosPage'));
 
 const PageLoader = () => (
     <div className="min-h-screen flex items-center justify-center">
@@ -23,6 +24,7 @@ function App() {
                 <Route element={<Layout />}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/servicios" element={<ServiciosPage />} />
+                    <Route path="/nosotros" element={<NosotrosPage />} />
                     <Route path="/blog" element={<BlogListPage />} />
                     <Route path="/blog/:slug" element={<BlogPostPage />} />
                     <Route path="/contacto" element={<ContactoPage />} />

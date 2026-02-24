@@ -20,7 +20,7 @@ const Navbar = () => {
                         <Link to="/servicios" className="hover:text-jhedai-primary transition-colors">Servicios</Link>
                         <a href="#ecosistema" className="hover:text-jhedai-primary transition-colors">Ecosistema</a>
                         <a href="#methodology" className="hover:text-jhedai-primary transition-colors">Metodología</a>
-                        <a href="#nosotros" className="hover:text-jhedai-primary transition-colors">Nosotros</a>
+                        <Link to="/nosotros" className="hover:text-jhedai-primary transition-colors">Nosotros</Link>
                         <Link to="/blog" className="hover:text-jhedai-primary transition-colors">Blog</Link>
                         <a href="#assessment" className="hover:text-jhedai-primary transition-colors">Assessment</a>
                     </div>
