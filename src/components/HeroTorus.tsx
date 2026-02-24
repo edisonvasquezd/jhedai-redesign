@@ -1,6 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, memo } from 'react';
 import * as THREE from 'three';
+import { useInViewport } from '../hooks/useInViewport';
 
 const PARTICLE_COUNT = 10000;
 const MOBIUS_RADIUS = 1.4;
@@ -62,14 +63,30 @@ const ParticleMobius = () => {
             },
             vertexShader: `
         attribute float aSize;
+        attribute vec3 aMobiusPosition;
+        attribute vec3 aRandomOffset;
         uniform float uTime;
         uniform float uPixelRatio;
         varying float vDistance;
         varying float vRandom;
 
         void main() {
-          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-          vDistance = length(position.xyz) / 3.0;
+          // === GPU-BASED POSITION INTERPOLATION ===
+          // Cycle: Formed -> Scattered -> Formed
+          float cycle = uTime * 0.3;
+          float raw = sin(cycle);
+          float normalized = (raw + 1.0) / 2.0;
+          float pw = pow(normalized, 4.0);
+
+          // Interpolate between Möbius position and scattered position
+          vec3 pos = aMobiusPosition + aRandomOffset * pw;
+
+          // Organic movement (same as CPU version)
+          float organic = sin(float(gl_VertexID) * 0.1 + uTime) * 0.03;
+          pos += organic;
+
+          vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+          vDistance = length(pos.xyz) / 3.0;
           vRandom = aSize / 4.0;
           gl_PointSize = aSize * uPixelRatio * (8.0 / -mvPosition.z);
           gl_PointSize = max(gl_PointSize, 1.5);
@@ -108,30 +125,12 @@ const ParticleMobius = () => {
         if (!pointsRef.current || !materialRef.current) return;
         const t = state.clock.getElapsedTime();
 
-        // Cycle: Formed -> Scattered -> Formed
-        const cycle = t * 0.3;
-        const raw = Math.sin(cycle);
-        const normalized = (raw + 1) / 2;
-        const pw = Math.pow(normalized, 4);
-
-        const posArray = pointsRef.current.geometry.attributes.position.array as Float32Array;
-
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            const i3 = i * 3;
-            const organic = Math.sin(i * 0.1 + t) * 0.03;
-
-            posArray[i3] = mobiusPositions[i3] + randomOffsets[i3] * pw + organic;
-            posArray[i3 + 1] = mobiusPositions[i3 + 1] + randomOffsets[i3 + 1] * pw + organic;
-            posArray[i3 + 2] = mobiusPositions[i3 + 2] + randomOffsets[i3 + 2] * pw + organic;
-        }
-
-        pointsRef.current.geometry.attributes.position.needsUpdate = true;
-
         // Slow elegant rotation — tilted for best viewing angle
         pointsRef.current.rotation.x = Math.PI * 0.3 + t * 0.08;
         pointsRef.current.rotation.y = t * 0.15;
         pointsRef.current.rotation.z = t * 0.03;
 
+        // Update shader time uniform (position calculation now in GPU)
         materialRef.current.uniforms.uTime.value = t;
     });
 
@@ -141,6 +140,14 @@ const ParticleMobius = () => {
                 <bufferAttribute
                     attach="attributes-position"
                     args={[positions, 3]}
+                />
+                <bufferAttribute
+                    attach="attributes-aMobiusPosition"
+                    args={[mobiusPositions, 3]}
+                />
+                <bufferAttribute
+                    attach="attributes-aRandomOffset"
+                    args={[randomOffsets, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-aSize"
@@ -153,12 +160,15 @@ const ParticleMobius = () => {
 };
 
 const HeroTorus = () => {
+    const { ref, isInViewport } = useInViewport(0.1, '200px', true);
+
     return (
-        <div className="w-full h-full overflow-visible">
+        <div ref={ref} className="w-full h-full overflow-visible">
             <Canvas
                 camera={{ position: [0, 0, 8], fov: 35 }}
                 dpr={[1, 2]}
                 gl={{ antialias: true, alpha: true }}
+                frameloop={isInViewport ? 'always' : 'never'}
                 style={{
                     background: 'transparent',
                     width: '100%',
@@ -172,4 +182,4 @@ const HeroTorus = () => {
     );
 };
 
-export default HeroTorus;
+export default memo(HeroTorus);

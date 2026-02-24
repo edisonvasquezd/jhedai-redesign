@@ -9,7 +9,7 @@ import NosotrosSimple from '../components/NosotrosSimple';
 import Blog from '../components/Blog';
 import Assessment from '../components/Assessment';
 import SEOHead from '../components/SEOHead';
-import ParticleBackground from '../components/ParticleBackground';
+import ParticleSphere from '../components/ParticleSphere';
 
 const HomePage = () => {
     return (
@@ -43,9 +43,9 @@ const HomePage = () => {
                 <Hero />
                 <ServiceGrid />
 
-                {/* Ecosistema — with particle background */}
+                {/* Ecosistema — with giant particle sphere */}
                 <div className="relative bg-jhedai-primary">
-                    <ParticleBackground />
+                    <ParticleSphere />
                     <div className="relative z-10">
                         <AgentesAutonomos />
                         <div className="container"><div className="h-px bg-white/10" /></div>
