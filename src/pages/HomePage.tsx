@@ -10,6 +10,7 @@ import Blog from '../components/Blog';
 import Assessment from '../components/Assessment';
 import SEOHead from '../components/SEOHead';
 import ParticleSphere from '../components/ParticleSphere';
+import Analytics from '../components/Analytics';
 import { OrganizationSchema } from '../components/schemas/OrganizationSchema';
 
 const HomePage = () => {
@@ -20,6 +21,7 @@ const HomePage = () => {
                 description="Diagnóstico, implementación y capacitación en inteligencia artificial para la industria y gobierno en Chile."
                 canonical="/"
             />
+            <Analytics />
             <OrganizationSchema />
             <main className="bg-abstract">
                 <Hero />

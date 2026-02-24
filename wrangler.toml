@@ -1,0 +1,61 @@
+# Cloudflare Pages Configuration
+# Documentación: https://developers.cloudflare.com/pages/
+
+name = "jhedai"
+compatibility_date = "2024-01-01"
+
+# Pages configuration
+pages_build_output_dir = "dist"
+
+# KV Namespaces (opcional - para pre-rendering cache)
+# Para crear: npx wrangler kv:namespace create "PRERENDER_CACHE"
+# Luego descomenta y agrega el ID:
+# [[kv_namespaces]]
+# binding = "PRERENDER_CACHE"
+# id = "tu-kv-namespace-id-aqui"
+
+# Variables de entorno
+[vars]
+ENVIRONMENT = "production"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+
+# Headers personalizados
+[[headers]]
+for = "/*"
+[headers.values]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache para assets estáticos
+[[headers]]
+for = "/assets/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache para imágenes
+[[headers]]
+for = "*.png"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "*.jpg"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "*.webp"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects (ejemplo)
+# [[redirects]]
+# from = "/old-path"
+# to = "/new-path"
+# status = 301
