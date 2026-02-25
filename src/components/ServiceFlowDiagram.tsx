@@ -79,7 +79,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Machine Learning: El ciclo de aprendizaje automático
     const MachineLearningFlow = () => (
-        <div className="relative w-full h-64 flex items-center justify-center px-4">
+        <div className="relative w-full h-72 flex items-center justify-center px-4">
             <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                 <defs>
                     <linearGradient id="mlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -88,19 +88,19 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     </linearGradient>
                 </defs>
                 {/* Main path - Compacto */}
-                <motion.path d="M 100 128 L 200 128" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
-                <motion.path d="M 200 128 L 300 75" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 200 128 L 300 181" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 300 75 L 400 128" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
-                <motion.path d="M 300 181 L 400 128" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.path d="M 120 140 L 220 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+                <motion.path d="M 220 140 L 320 85" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 220 140 L 320 195" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 320 85 L 420 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.path d="M 320 195 L 420 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
             </svg>
 
             {[
-                { icon: <Users size={20} />, x: 100, y: 128, label: 'Datos históricos', sublabel: 'de tu negocio' },
-                { icon: <Settings size={20} />, x: 200, y: 128, label: 'Entrenamiento', sublabel: 'del modelo' },
-                { icon: <Target size={20} />, x: 300, y: 75, label: 'Predicciones', sublabel: 'precisas' },
-                { icon: <Zap size={20} />, x: 300, y: 181, label: 'Automatización', sublabel: 'de procesos' },
-                { icon: <TrendingUp size={20} />, x: 400, y: 128, label: 'Resultados', sublabel: 'medibles' },
+                { icon: <Users size={20} />, x: 120, y: 140, label: 'Datos históricos', sublabel: 'de tu negocio' },
+                { icon: <Settings size={20} />, x: 220, y: 140, label: 'Entrenamiento', sublabel: 'del modelo' },
+                { icon: <Target size={20} />, x: 320, y: 85, label: 'Predicciones', sublabel: 'precisas' },
+                { icon: <Zap size={20} />, x: 320, y: 195, label: 'Automatización', sublabel: 'de procesos' },
+                { icon: <TrendingUp size={20} />, x: 420, y: 140, label: 'Resultados', sublabel: 'medibles' },
             ].map((node, i) => (
                 <motion.div
                     key={i}
@@ -113,7 +113,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     <div className={`w-[51px] h-[51px] rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 text-center w-28">
+                    <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-32">
                         <p className="text-[10px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
                         <p className="text-[9px] text-jhedai-primary/60 mt-0.5">{node.sublabel}</p>
                     </div>
@@ -124,9 +124,9 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Business Intelligence: Ciclo continuo de mejora
     const BusinessIntelligenceFlow = () => {
-        const radius = 85;
-        const centerX = 200;
-        const centerY = 140;
+        const radius = 90;
+        const centerX = 240;
+        const centerY = 150;
         const icons = [
             { icon: <Upload size={20} />, label: 'Conectas', sublabel: 'tus fuentes de datos' },
             { icon: <BarChart3 size={20} />, label: 'Visualizas', sublabel: 'en dashboards' },
@@ -136,7 +136,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
         ];
 
         return (
-            <div className="relative w-full h-72 flex items-center justify-center">
+            <div className="relative w-full h-80 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full">
                     <defs>
                         <linearGradient id="biGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -175,7 +175,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                             <div className={`w-[51px] h-[51px] rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                                 {item.icon}
                             </div>
-                            <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 text-center w-32">
+                            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-36">
                                 <p className="text-[10px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
                                 <p className="text-[9px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
                             </div>
@@ -184,7 +184,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                 })}
 
                 {/* Center text */}
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center" style={{ left: centerX - 30, top: centerY - 14 }}>
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center" style={{ left: centerX - 32, top: centerY - 14 }}>
                     <p className="text-sm font-bold text-jhedai-primary">Mejora</p>
                     <p className="text-xs text-jhedai-secondary">continua</p>
                 </motion.div>
