@@ -10,7 +10,6 @@ import {
     ShoppingCart,
     GraduationCap,
     ExternalLink,
-    ArrowRight,
     Database,
     Cpu,
     Sparkles,
