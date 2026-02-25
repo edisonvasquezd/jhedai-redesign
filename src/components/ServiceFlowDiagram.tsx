@@ -79,7 +79,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Machine Learning: El ciclo de aprendizaje automático
     const MachineLearningFlow = () => (
-        <div className="relative w-full h-72 flex items-center justify-center px-4">
+        <div className="relative w-full h-96 flex items-center justify-center">
             <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                 <defs>
                     <linearGradient id="mlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -87,20 +87,20 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                         <stop offset="100%" className="text-pink-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                {/* Main path - Compacto */}
-                <motion.path d="M 120 140 L 220 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
-                <motion.path d="M 220 140 L 320 85" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 220 140 L 320 195" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 320 85 L 420 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
-                <motion.path d="M 320 195 L 420 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                {/* Main path - usando centros de nodos */}
+                <motion.line x1="120" y1="180" x2="220" y2="180" stroke="url(#mlGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+                <motion.line x1="220" y1="180" x2="320" y2="135" stroke="url(#mlGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.line x1="220" y1="180" x2="320" y2="225" stroke="url(#mlGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.line x1="320" y1="135" x2="420" y2="180" stroke="url(#mlGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.line x1="320" y1="225" x2="420" y2="180" stroke="url(#mlGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
             </svg>
 
             {[
-                { icon: <Users size={20} />, x: 120, y: 140, label: 'Datos históricos', sublabel: 'de tu negocio' },
-                { icon: <Settings size={20} />, x: 220, y: 140, label: 'Entrenamiento', sublabel: 'del modelo' },
-                { icon: <Target size={20} />, x: 320, y: 85, label: 'Predicciones', sublabel: 'precisas' },
-                { icon: <Zap size={20} />, x: 320, y: 195, label: 'Automatización', sublabel: 'de procesos' },
-                { icon: <TrendingUp size={20} />, x: 420, y: 140, label: 'Resultados', sublabel: 'medibles' },
+                { icon: <Users size={20} />, x: 120, y: 180, label: 'Datos históricos', sublabel: 'de tu negocio', textPos: 'bottom' },
+                { icon: <Settings size={20} />, x: 220, y: 180, label: 'Entrenamiento', sublabel: 'del modelo', textPos: 'bottom' },
+                { icon: <Target size={20} />, x: 320, y: 135, label: 'Predicciones', sublabel: 'precisas', textPos: 'top' },
+                { icon: <Zap size={20} />, x: 320, y: 225, label: 'Automatización', sublabel: 'de procesos', textPos: 'bottom' },
+                { icon: <TrendingUp size={20} />, x: 420, y: 180, label: 'Resultados', sublabel: 'medibles', textPos: 'bottom' },
             ].map((node, i) => (
                 <motion.div
                     key={i}
@@ -113,7 +113,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     <div className={`w-[51px] h-[51px] rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-32">
+                    <div className={`absolute ${node.textPos === 'top' ? '-top-16' : '-bottom-20'} left-1/2 -translate-x-1/2 text-center w-32`}>
                         <p className="text-[10px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
                         <p className="text-[9px] text-jhedai-primary/60 mt-0.5">{node.sublabel}</p>
                     </div>
@@ -124,9 +124,9 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Business Intelligence: Ciclo continuo de mejora
     const BusinessIntelligenceFlow = () => {
-        const radius = 90;
+        const radius = 125;
         const centerX = 240;
-        const centerY = 150;
+        const centerY = 180;
         const icons = [
             { icon: <Upload size={20} />, label: 'Conectas', sublabel: 'tus fuentes de datos' },
             { icon: <BarChart3 size={20} />, label: 'Visualizas', sublabel: 'en dashboards' },
@@ -136,7 +136,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
         ];
 
         return (
-            <div className="relative w-full h-80 flex items-center justify-center">
+            <div className="relative w-full h-96 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full">
                     <defs>
                         <linearGradient id="biGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -261,19 +261,19 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Automatizaciones: Flujo de trabajo automatizado
     const AutomationFlow = () => (
-        <div className="relative w-full h-96 flex items-center justify-center px-4">
-            <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+        <div className="relative w-full h-96 flex items-center justify-center">
+            <svg className="absolute inset-0 w-full h-full">
                 <defs>
                     <linearGradient id="autoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" className="text-cyan-500" style={{ stopColor: 'currentColor' }} />
                         <stop offset="100%" className="text-blue-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                <motion.path d="M 140 190 L 260 190" stroke="url(#autoGrad)" strokeWidth="4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
-                <motion.path d="M 260 190 L 380 110" stroke="url(#autoGrad)" strokeWidth="4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 260 190 L 380 270" stroke="url(#autoGrad)" strokeWidth="4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
-                <motion.path d="M 380 110 L 500 190" stroke="url(#autoGrad)" strokeWidth="4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
-                <motion.path d="M 380 270 L 500 190" stroke="url(#autoGrad)" strokeWidth="4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.line x1="140" y1="190" x2="260" y2="190" stroke="url(#autoGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+                <motion.line x1="260" y1="190" x2="380" y2="110" stroke="url(#autoGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.line x1="260" y1="190" x2="380" y2="270" stroke="url(#autoGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.line x1="380" y1="110" x2="500" y2="190" stroke="url(#autoGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.line x1="380" y1="270" x2="500" y2="190" stroke="url(#autoGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
             </svg>
 
             {[
@@ -298,9 +298,9 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     // Data Science: Ciclo de experimentación
     const DataScienceFlow = () => {
-        const radius = 100;
+        const radius = 115;
         const centerX = 240;
-        const centerY = 180;
+        const centerY = 200;
         const icons = [
             { icon: <Lightbulb size={20} />, label: 'Hipótesis', sublabel: 'de negocio' },
             { icon: <Settings size={20} />, label: 'Diseño', sublabel: 'de experimento' },
@@ -310,7 +310,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
         ];
 
         return (
-            <div className="relative w-full h-96 flex items-center justify-center">
+            <div className="relative w-full h-96">
                 <svg className="absolute inset-0 w-full h-full">
                     <defs>
                         <linearGradient id="dsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -326,12 +326,17 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     const x = centerX + radius * Math.cos(angle);
                     const y = centerY + radius * Math.sin(angle);
 
+                    // Posicionar texto radialmente hacia afuera
+                    const textOffsetDistance = 85;
+                    const textX = textOffsetDistance * Math.cos(angle);
+                    const textY = textOffsetDistance * Math.sin(angle);
+
                     return (
                         <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.25, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 36, top: y - 36 }}>
                             <div className={`w-[72px] h-[72px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                                 {item.icon}
                             </div>
-                            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-32">
+                            <div className="absolute text-center w-24" style={{ left: `calc(50% + ${textX}px)`, top: `calc(50% + ${textY}px)`, transform: 'translate(-50%, -50%)' }}>
                                 <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
                                 <p className="text-[10px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
                             </div>
@@ -339,7 +344,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     );
                 })}
 
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center" style={{ left: centerX - 40, top: centerY - 18 }}>
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center w-20" style={{ left: `${centerX - 40}px`, top: `${centerY - 20}px` }}>
                     <p className="text-sm font-bold text-jhedai-primary">Método</p>
                     <p className="text-xs text-jhedai-secondary">científico</p>
                 </motion.div>
