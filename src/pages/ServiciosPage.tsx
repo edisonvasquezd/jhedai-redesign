@@ -29,7 +29,6 @@ interface Service {
     gradient: string;
     category: string;
     flowType: 'linear' | 'branching' | 'circular' | 'hierarchical';
-    flowSteps: string[];
 }
 
 const services: Service[] = [
@@ -47,7 +46,6 @@ const services: Service[] = [
         gradient: 'from-blue-500 via-cyan-500 to-blue-600',
         category: 'Data',
         flowType: 'linear',
-        flowSteps: ['Recolección', 'Limpieza', 'Análisis', 'Visualización', 'Insights'],
     },
     {
         id: 'machine-learning',
@@ -63,7 +61,6 @@ const services: Service[] = [
         gradient: 'from-purple-500 via-pink-500 to-red-500',
         category: 'AI',
         flowType: 'branching',
-        flowSteps: ['Datos', 'Entrenamiento', 'Supervisado', 'No Supervisado', 'Predicción'],
     },
     {
         id: 'business-intelligence',
@@ -79,7 +76,6 @@ const services: Service[] = [
         gradient: 'from-green-500 via-emerald-500 to-teal-500',
         category: 'Data',
         flowType: 'circular',
-        flowSteps: ['Fuentes', 'ETL', 'Warehouse', 'BI', 'Decisiones'],
     },
     {
         id: 'nlp',
@@ -95,7 +91,6 @@ const services: Service[] = [
         gradient: 'from-orange-500 via-amber-500 to-yellow-500',
         category: 'AI',
         flowType: 'linear',
-        flowSteps: ['Texto', 'Tokenización', 'Embeddings', 'Modelo', 'Respuesta'],
     },
     {
         id: 'computer-vision',
@@ -111,7 +106,6 @@ const services: Service[] = [
         gradient: 'from-indigo-500 via-purple-500 to-pink-500',
         category: 'AI',
         flowType: 'hierarchical',
-        flowSteps: ['Imagen', 'CNN', 'Features', 'Detección', 'Resultado'],
     },
     {
         id: 'automatizaciones',
@@ -127,7 +121,6 @@ const services: Service[] = [
         gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
         category: 'Automation',
         flowType: 'branching',
-        flowSteps: ['Trigger', 'Análisis', 'Acción 1', 'Acción 2', 'Resultado'],
     },
     {
         id: 'data-science',
@@ -143,7 +136,6 @@ const services: Service[] = [
         gradient: 'from-rose-500 via-red-500 to-orange-500',
         category: 'Data',
         flowType: 'circular',
-        flowSteps: ['Hipótesis', 'Experimento', 'Análisis', 'Modelo', 'Deploy'],
     },
 ];
 
@@ -338,7 +330,6 @@ const ServiciosPage = () => {
                                             <div className="absolute inset-0 bg-gradient-to-br from-jhedai-primary/5 to-jhedai-secondary/5 rounded-3xl blur-2xl" />
                                             <div className="relative glass-card p-8 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm">
                                                 <ServiceFlowDiagram
-                                                    steps={service.flowSteps}
                                                     type={service.flowType}
                                                     gradient={service.gradient}
                                                 />
