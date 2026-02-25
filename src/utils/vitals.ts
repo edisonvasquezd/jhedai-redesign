@@ -9,8 +9,18 @@ import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 /**
  * Send metric to analytics endpoint
  * Uses Navigator.sendBeacon for reliability (works even when page is unloading)
+ *
+ * NOTA: Temporalmente desactivado hasta configurar el endpoint en Cloudflare
  */
 function sendToAnalytics(metric: Metric) {
+    // Solo logear en consola por ahora
+    // TODO: Reactivar cuando el Worker de API tenga el endpoint /api/analytics configurado
+    if (import.meta.env.DEV) {
+        console.debug('[Analytics] Would send:', metric.name, metric.value);
+    }
+
+    // Código desactivado temporalmente:
+    /*
     const body = JSON.stringify({
         name: metric.name,
         value: metric.value,
@@ -34,6 +44,7 @@ function sendToAnalytics(metric: Metric) {
             },
         });
     }
+    */
 }
 
 /**

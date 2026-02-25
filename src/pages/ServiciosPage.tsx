@@ -253,7 +253,7 @@ const ServiciosPage = () => {
                     </motion.div>
 
                     {/* Services - Zigzag Layout */}
-                    <div className="mb-24 space-y-32">
+                    <div className="mb-24 space-y-40">
                         {services.map((service, i) => {
                             const isLeft = i % 2 === 0;
 
@@ -266,10 +266,10 @@ const ServiciosPage = () => {
                                     transition={{ duration: 0.7, delay: 0.1 }}
                                     className={`flex flex-col ${
                                         isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                                    } gap-12 items-center`}
+                                    } gap-16 items-start`}
                                 >
                                     {/* Content Side */}
-                                    <div className="lg:w-1/2 space-y-6">
+                                    <div className="lg:w-5/12 space-y-8">
                                         <div>
                                             <span className="inline-block text-xs font-bold tracking-widest text-jhedai-secondary mb-3 bg-jhedai-secondary/10 px-3 py-1 rounded-full">
                                                 {service.category}
@@ -288,7 +288,7 @@ const ServiciosPage = () => {
                                             {service.desc}
                                         </p>
 
-                                        <div className="space-y-3">
+                                        <div className="space-y-4">
                                             {service.benefits.map((benefit, idx) => (
                                                 <motion.div
                                                     key={idx}
@@ -296,30 +296,19 @@ const ServiciosPage = () => {
                                                     whileInView={{ opacity: 1, x: 0 }}
                                                     viewport={{ once: true }}
                                                     transition={{ delay: idx * 0.1 + 0.3 }}
-                                                    className="flex items-center gap-3 group"
+                                                    className="flex items-start gap-3 group"
                                                 >
-                                                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-jhedai-secondary to-jhedai-primary shrink-0 group-hover:scale-150 transition-transform" />
-                                                    <span className="text-jhedai-primary/80 group-hover:text-jhedai-primary transition-colors">
+                                                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-jhedai-secondary to-jhedai-primary shrink-0 group-hover:scale-150 transition-transform mt-2" />
+                                                    <span className="text-jhedai-primary/80 group-hover:text-jhedai-primary transition-colors leading-relaxed">
                                                         {benefit}
                                                     </span>
                                                 </motion.div>
                                             ))}
                                         </div>
-
-                                        <Link
-                                            to="/contacto"
-                                            className={`inline-flex items-center gap-2 bg-gradient-to-r ${service.gradient} text-white px-6 py-3 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 group`}
-                                        >
-                                            Solicitar información
-                                            <ArrowRight
-                                                size={18}
-                                                className="group-hover:translate-x-1 transition-transform"
-                                            />
-                                        </Link>
                                     </div>
 
                                     {/* Flow Diagram Side */}
-                                    <div className="lg:w-1/2">
+                                    <div className="lg:w-7/12 w-full">
                                         <motion.div
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             whileInView={{ opacity: 1, scale: 1 }}
@@ -328,7 +317,7 @@ const ServiciosPage = () => {
                                             className="relative"
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-br from-jhedai-primary/5 to-jhedai-secondary/5 rounded-3xl blur-2xl" />
-                                            <div className="relative glass-card p-8 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm">
+                                            <div className="relative glass-card p-12 lg:p-16 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm min-h-[400px] flex items-center justify-center">
                                                 <ServiceFlowDiagram
                                                     type={service.flowType}
                                                     gradient={service.gradient}
