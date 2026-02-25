@@ -170,14 +170,31 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     const x = centerX + radius * Math.cos(angle);
                     const y = centerY + radius * Math.sin(angle);
 
+                    // Determinar posición del texto según el ángulo
+                    let textPosition = '';
+                    let textClass = '';
+                    if (i === 0) { // Conectas - arriba
+                        textPosition = '-top-16';
+                        textClass = 'left-1/2 -translate-x-1/2';
+                    } else if (i === 1) { // Visualizas - derecha
+                        textPosition = 'top-1/2 -translate-y-1/2';
+                        textClass = '-right-28';
+                    } else if (i === 2 || i === 3) { // Monitoreas e Identificas - abajo (como estaban)
+                        textPosition = '-bottom-16';
+                        textClass = 'left-1/2 -translate-x-1/2';
+                    } else { // Actúas - izquierda
+                        textPosition = 'top-1/2 -translate-y-1/2';
+                        textClass = '-left-28';
+                    }
+
                     return (
                         <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.25, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 25.5, top: y - 25.5 }}>
                             <div className={`w-[51px] h-[51px] rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                                 {item.icon}
                             </div>
-                            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-36">
-                                <p className="text-[10px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
-                                <p className="text-[9px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
+                            <div className={`absolute ${textPosition} ${textClass} text-center w-36`}>
+                                <p className="text-xs font-bold text-jhedai-primary leading-tight">{item.label}</p>
+                                <p className="text-[10px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
                             </div>
                         </motion.div>
                     );
@@ -232,25 +249,25 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                         <stop offset="100%" className="text-purple-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                <motion.line x1="280" y1="80" x2="280" y2="150" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
-                <motion.line x1="280" y1="150" x2="170" y2="240" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
-                <motion.line x1="280" y1="150" x2="390" y2="240" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
-                <motion.line x1="170" y1="240" x2="280" y2="310" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
-                <motion.line x1="390" y1="240" x2="280" y2="310" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
+                <motion.line x1="280" y1="86" x2="280" y2="94" stroke="url(#cvGrad)" strokeWidth="6" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                <motion.line x1="280" y1="130" x2="170" y2="240" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
+                <motion.line x1="280" y1="130" x2="390" y2="240" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
+                <motion.line x1="170" y1="240" x2="280" y2="330" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
+                <motion.line x1="390" y1="240" x2="280" y2="330" stroke="url(#cvGrad)" strokeWidth="4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
             </svg>
 
             {[
-                { icon: <Upload size={24} />, x: 280, y: 80, label: 'Captura', sublabel: 'de imagen/video' },
-                { icon: <Eye size={24} />, x: 280, y: 150, label: 'Análisis', sublabel: 'visual automático' },
-                { icon: <CheckCircle size={24} />, x: 170, y: 240, label: 'Aprobado', sublabel: 'cumple estándares' },
-                { icon: <AlertCircle size={24} />, x: 390, y: 240, label: 'Defecto', sublabel: 'detectado' },
-                { icon: <Award size={24} />, x: 280, y: 310, label: 'Decisión', sublabel: 'instantánea' },
+                { icon: <Upload size={24} />, x: 280, y: 50, label: 'Captura', sublabel: 'de imagen/video', textPosition: 'top' },
+                { icon: <Eye size={24} />, x: 280, y: 130, label: 'Análisis', sublabel: 'visual automático', textPosition: 'bottom' },
+                { icon: <CheckCircle size={24} />, x: 170, y: 240, label: 'Aprobado', sublabel: 'cumple estándares', textPosition: 'bottom' },
+                { icon: <AlertCircle size={24} />, x: 390, y: 240, label: 'Defecto', sublabel: 'detectado', textPosition: 'bottom' },
+                { icon: <Award size={24} />, x: 280, y: 330, label: 'Decisión', sublabel: 'instantánea', textPosition: 'bottom' },
             ].map((node, i) => (
                 <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: node.x - 36, top: node.y - 36 }}>
                     <div className={`w-[72px] h-[72px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-32">
+                    <div className={`absolute ${node.textPosition === 'top' ? '-top-16' : '-bottom-16'} left-1/2 -translate-x-1/2 text-center w-32`}>
                         <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
                         <p className="text-[10px] text-jhedai-primary/60 mt-0.5">{node.sublabel}</p>
                     </div>
@@ -337,16 +354,16 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                                 {item.icon}
                             </div>
                             <div className="absolute text-center w-24" style={{ left: `calc(50% + ${textX}px)`, top: `calc(50% + ${textY}px)`, transform: 'translate(-50%, -50%)' }}>
-                                <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
-                                <p className="text-[10px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
+                                <p className="text-xs font-bold text-jhedai-primary leading-tight">{item.label}</p>
+                                <p className="text-[11px] text-jhedai-primary/60 mt-0.5">{item.sublabel}</p>
                             </div>
                         </motion.div>
                     );
                 })}
 
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center w-20" style={{ left: `${centerX - 40}px`, top: `${centerY - 20}px` }}>
-                    <p className="text-sm font-bold text-jhedai-primary">Método</p>
-                    <p className="text-xs text-jhedai-secondary">científico</p>
+                    <p className="text-sm font-bold text-jhedai-primary">Mejora</p>
+                    <p className="text-xs text-jhedai-secondary">continua</p>
                 </motion.div>
             </div>
         );
