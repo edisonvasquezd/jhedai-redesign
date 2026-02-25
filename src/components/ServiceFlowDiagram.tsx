@@ -1,26 +1,25 @@
 import { motion } from 'framer-motion';
 import {
-    BarChart3,
-    TrendingUp,
-    DollarSign,
-    Users,
-    Target,
-    Zap,
-    Shield,
-    Clock,
+    Database,
+    Search,
     Lightbulb,
-    ThumbsUp,
-    Award,
-    Rocket,
+    CheckCircle,
+    TrendingUp,
+    Upload,
+    Settings,
+    Target,
+    BarChart3,
+    Users,
+    MessageCircle,
+    Zap,
     Eye,
-    ShoppingCart,
-    MessageSquare,
-    FileSearch,
-    AlertTriangle,
-    CheckCircle2,
-    Factory,
-    Phone,
-    Mail,
+    AlertCircle,
+    Package,
+    FileText,
+    Clock,
+    Award,
+    Play,
+    ArrowRight,
 } from 'lucide-react';
 
 interface ServiceFlowDiagramProps {
@@ -42,48 +41,45 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 
     const gradientColor = getGradientColor(gradient);
 
-    // Análisis de Datos - Flujo lineal de valor
+    // Análisis de Datos: Cómo transformamos tus datos en decisiones
     const DataAnalysisFlow = () => (
-        <div className="flex items-center justify-center gap-3 px-4">
-            {[
-                { icon: <BarChart3 size={24} />, label: 'Datos dispersos' },
-                { icon: <Lightbulb size={24} />, label: 'Insights claros' },
-                { icon: <Target size={24} />, label: 'Decisiones acertadas' },
-                { icon: <TrendingUp size={24} />, label: 'Mejores resultados' },
-                { icon: <DollarSign size={24} />, label: 'Mayor rentabilidad' },
-            ].map((step, i) => (
-                <div key={i} className="flex items-center gap-3">
-                    <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }}
-                        className="relative group"
-                    >
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                            {step.icon}
-                        </div>
-                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity text-center w-24">
-                            {step.label}
-                        </div>
-                    </motion.div>
-                    {i < 4 && (
+        <div className="flex flex-col items-center justify-center gap-6 px-4">
+            <div className="flex items-center gap-4 w-full max-w-2xl">
+                {[
+                    { icon: <Database size={28} />, label: 'Tus datos actuales' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <Search size={28} />, label: 'Analizamos patrones' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <Lightbulb size={28} />, label: 'Descubrimos insights' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <Target size={28} />, label: 'Tomas decisiones informadas' },
+                ].map((step, i) => (
+                    step.icon.type === ArrowRight ? (
+                        <div key={i} className="shrink-0">{step.icon}</div>
+                    ) : (
                         <motion.div
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ delay: i * 0.15 + 0.1, duration: 0.3 }}
-                            className={`h-0.5 w-8 bg-gradient-to-r ${gradientColor} origin-left`}
+                            key={i}
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: i * 0.12, type: 'spring', stiffness: 200 }}
+                            className="relative group flex-1"
                         >
-                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradientColor} absolute right-0 top-1/2 -translate-y-1/2`} />
+                            <div className={`w-full aspect-square max-w-[80px] mx-auto rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                                {step.icon}
+                            </div>
+                            <p className="text-[11px] font-semibold text-jhedai-primary/80 text-center mt-3 leading-tight">
+                                {step.label}
+                            </p>
                         </motion.div>
-                    )}
-                </div>
-            ))}
+                    )
+                ))}
+            </div>
         </div>
     );
 
-    // Machine Learning - Predicción y automatización
+    // Machine Learning: El ciclo de aprendizaje automático
     const MachineLearningFlow = () => (
-        <div className="relative w-full h-64 flex items-center justify-center">
+        <div className="relative w-full h-72 flex items-center justify-center px-6">
             <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                 <defs>
                     <linearGradient id="mlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -91,54 +87,56 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                         <stop offset="100%" className="text-pink-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                <motion.path d="M 100 130 L 200 130" stroke="url(#mlGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.2 }} />
-                <motion.path d="M 200 130 L 300 70" stroke="url(#mlGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.4 }} />
-                <motion.path d="M 200 130 L 300 190" stroke="url(#mlGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.4 }} />
-                <motion.path d="M 300 70 L 400 130" stroke="url(#mlGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.6 }} />
-                <motion.path d="M 300 190 L 400 130" stroke="url(#mlGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.6 }} />
+                {/* Main path */}
+                <motion.path d="M 80 140 L 200 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+                <motion.path d="M 200 140 L 320 80" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 200 140 L 320 200" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 320 80 L 440 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.path d="M 320 200 L 440 140" stroke="url(#mlGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
             </svg>
 
             {[
-                { icon: <Users size={20} />, x: 100, y: 130, label: 'Comportamiento de clientes' },
-                { icon: <Target size={20} />, x: 200, y: 130, label: 'Predicción inteligente' },
-                { icon: <ShoppingCart size={20} />, x: 300, y: 70, label: 'Recomendaciones personalizadas' },
-                { icon: <AlertTriangle size={20} />, x: 300, y: 190, label: 'Detección temprana de riesgos' },
-                { icon: <TrendingUp size={20} />, x: 400, y: 130, label: 'Aumento de ventas' },
+                { icon: <Users size={24} />, x: 80, y: 140, label: 'Datos históricos', sublabel: 'de tu negocio' },
+                { icon: <Settings size={24} />, x: 200, y: 140, label: 'Entrenamiento', sublabel: 'del modelo' },
+                { icon: <Target size={24} />, x: 320, y: 80, label: 'Predicciones', sublabel: 'precisas' },
+                { icon: <Zap size={24} />, x: 320, y: 200, label: 'Automatización', sublabel: 'de procesos' },
+                { icon: <TrendingUp size={24} />, x: 440, y: 140, label: 'Resultados', sublabel: 'medibles' },
             ].map((node, i) => (
                 <motion.div
                     key={i}
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }}
+                    transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }}
                     className="absolute group"
-                    style={{ left: node.x - 28, top: node.y - 28 }}
+                    style={{ left: node.x - 35, top: node.y - 35 }}
                 >
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                    <div className={`w-[70px] h-[70px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity w-32 text-center">
-                        {node.label}
+                    <div className="absolute -bottom-11 left-1/2 -translate-x-1/2 text-center w-24">
+                        <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
+                        <p className="text-[10px] text-jhedai-primary/60">{node.sublabel}</p>
                     </div>
                 </motion.div>
             ))}
         </div>
     );
 
-    // Business Intelligence - Ciclo de mejora continua
+    // Business Intelligence: Ciclo continuo de mejora
     const BusinessIntelligenceFlow = () => {
-        const radius = 80;
-        const centerX = 150;
-        const centerY = 130;
+        const radius = 90;
+        const centerX = 180;
+        const centerY = 140;
         const icons = [
-            { icon: <BarChart3 size={20} />, label: 'Reportes automáticos' },
-            { icon: <Eye size={20} />, label: 'Visibilidad total' },
-            { icon: <Lightbulb size={20} />, label: 'Identificar oportunidades' },
-            { icon: <Rocket size={20} />, label: 'Acciones rápidas' },
-            { icon: <Award size={20} />, label: 'Resultados medibles' },
+            { icon: <Upload size={24} />, label: 'Conectas', sublabel: 'tus fuentes de datos' },
+            { icon: <BarChart3 size={24} />, label: 'Visualizas', sublabel: 'en dashboards' },
+            { icon: <Eye size={24} />, label: 'Monitoreas', sublabel: 'KPIs en tiempo real' },
+            { icon: <Lightbulb size={24} />, label: 'Identificas', sublabel: 'oportunidades' },
+            { icon: <Play size={24} />, label: 'Actúas', sublabel: 'de inmediato' },
         ];
 
         return (
-            <div className="relative w-full h-64 flex items-center justify-center">
+            <div className="relative w-full h-72 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full">
                     <defs>
                         <linearGradient id="biGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -146,7 +144,25 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                             <stop offset="100%" className="text-emerald-500" style={{ stopColor: 'currentColor' }} />
                         </linearGradient>
                     </defs>
-                    <motion.circle cx={centerX} cy={centerY} r={radius} stroke="url(#biGrad)" strokeWidth="2" fill="none" strokeDasharray="5,5" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.5, ease: 'easeInOut' }} />
+                    <motion.circle cx={centerX} cy={centerY} r={radius} stroke="url(#biGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 2, ease: 'easeInOut' }} />
+                    {/* Arrows */}
+                    {icons.map((_, i) => {
+                        const angle = (i / icons.length) * 2 * Math.PI - Math.PI / 2;
+                        const nextAngle = ((i + 1) / icons.length) * 2 * Math.PI - Math.PI / 2;
+                        return (
+                            <motion.path
+                                key={i}
+                                d={`M ${centerX + (radius - 10) * Math.cos(angle + 0.3)} ${centerY + (radius - 10) * Math.sin(angle + 0.3)} L ${centerX + (radius - 5) * Math.cos((angle + nextAngle) / 2)} ${centerY + (radius - 5) * Math.sin((angle + nextAngle) / 2)}`}
+                                stroke="url(#biGrad)"
+                                strokeWidth="2"
+                                fill="none"
+                                markerEnd="url(#arrow)"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 0.5, delay: i * 0.3 + 1 }}
+                            />
+                        );
+                    })}
                 </svg>
 
                 {icons.map((item, i) => {
@@ -155,58 +171,60 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     const y = centerY + radius * Math.sin(angle);
 
                     return (
-                        <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 28, top: y - 28 }}>
-                            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                        <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.25, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 35, top: y - 35 }}>
+                            <div className={`w-[70px] h-[70px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                                 {item.icon}
                             </div>
-                            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity w-28 text-center">
-                                {item.label}
+                            <div className="absolute -bottom-11 left-1/2 -translate-x-1/2 text-center w-24">
+                                <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
+                                <p className="text-[10px] text-jhedai-primary/60">{item.sublabel}</p>
                             </div>
                         </motion.div>
                     );
                 })}
 
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8, type: 'spring', stiffness: 150 }} className="absolute z-20" style={{ left: centerX - 20, top: centerY - 20 }}>
-                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg`}>
-                        <TrendingUp size={18} />
-                    </div>
+                {/* Center text */}
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center" style={{ left: centerX - 40, top: centerY - 15 }}>
+                    <p className="text-sm font-bold text-jhedai-primary">Mejora</p>
+                    <p className="text-xs text-jhedai-secondary">continua</p>
                 </motion.div>
             </div>
         );
     };
 
-    // NLP - Comunicación inteligente
+    // NLP: Flujo de conversación inteligente
     const NLPFlow = () => (
-        <div className="flex items-center justify-center gap-3 px-4">
-            {[
-                { icon: <MessageSquare size={24} />, label: 'Atención 24/7' },
-                { icon: <Users size={24} />, label: 'Respuestas instantáneas' },
-                { icon: <ThumbsUp size={24} />, label: 'Clientes satisfechos' },
-                { icon: <Clock size={24} />, label: 'Ahorro de tiempo' },
-                { icon: <DollarSign size={24} />, label: 'Reducción de costos' },
-            ].map((step, i) => (
-                <div key={i} className="flex items-center gap-3">
-                    <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }} className="relative group">
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                            {step.icon}
-                        </div>
-                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity text-center w-24">
-                            {step.label}
-                        </div>
-                    </motion.div>
-                    {i < 4 && (
-                        <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: i * 0.15 + 0.1, duration: 0.3 }} className={`h-0.5 w-8 bg-gradient-to-r ${gradientColor} origin-left`}>
-                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradientColor} absolute right-0 top-1/2 -translate-y-1/2`} />
+        <div className="flex flex-col items-center justify-center gap-6 px-4">
+            <div className="flex items-center gap-4 w-full max-w-2xl">
+                {[
+                    { icon: <MessageCircle size={28} />, label: 'Cliente pregunta' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <Search size={28} />, label: 'IA comprende intención' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <Lightbulb size={28} />, label: 'Procesa contexto' },
+                    { icon: <ArrowRight size={20} className="text-jhedai-primary/40" /> },
+                    { icon: <CheckCircle size={28} />, label: 'Responde con precisión' },
+                ].map((step, i) => (
+                    step.icon.type === ArrowRight ? (
+                        <div key={i} className="shrink-0">{step.icon}</div>
+                    ) : (
+                        <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.12, type: 'spring', stiffness: 200 }} className="relative group flex-1">
+                            <div className={`w-full aspect-square max-w-[80px] mx-auto rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                                {step.icon}
+                            </div>
+                            <p className="text-[11px] font-semibold text-jhedai-primary/80 text-center mt-3 leading-tight">
+                                {step.label}
+                            </p>
                         </motion.div>
-                    )}
-                </div>
-            ))}
+                    )
+                ))}
+            </div>
         </div>
     );
 
-    // Computer Vision - Inspección y control
+    // Computer Vision: Sistema de inspección visual
     const ComputerVisionFlow = () => (
-        <div className="relative w-full h-64 flex items-center justify-center">
+        <div className="relative w-full h-72 flex items-center justify-center">
             <svg className="absolute inset-0 w-full h-full">
                 <defs>
                     <linearGradient id="cvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -214,35 +232,36 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                         <stop offset="100%" className="text-purple-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                <motion.line x1="200" y1="50" x2="200" y2="100" stroke="url(#cvGrad)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4 }} />
-                <motion.line x1="200" y1="100" x2="120" y2="150" stroke="url(#cvGrad)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.2 }} />
-                <motion.line x1="200" y1="100" x2="280" y2="150" stroke="url(#cvGrad)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.2 }} />
-                <motion.line x1="120" y1="150" x2="200" y2="200" stroke="url(#cvGrad)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.4 }} />
-                <motion.line x1="280" y1="150" x2="200" y2="200" stroke="url(#cvGrad)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.4 }} />
+                <motion.line x1="220" y1="50" x2="220" y2="110" stroke="url(#cvGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                <motion.line x1="220" y1="110" x2="120" y2="180" stroke="url(#cvGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
+                <motion.line x1="220" y1="110" x2="320" y2="180" stroke="url(#cvGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.3 }} />
+                <motion.line x1="120" y1="180" x2="220" y2="250" stroke="url(#cvGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
+                <motion.line x1="320" y1="180" x2="220" y2="250" stroke="url(#cvGrad)" strokeWidth="3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.6 }} />
             </svg>
 
             {[
-                { icon: <Factory size={20} />, x: 200, y: 50, label: 'Producción continua' },
-                { icon: <Eye size={20} />, x: 200, y: 100, label: 'Inspección automática' },
-                { icon: <CheckCircle2 size={20} />, x: 120, y: 150, label: 'Control de calidad' },
-                { icon: <AlertTriangle size={20} />, x: 280, y: 150, label: 'Detección de defectos' },
-                { icon: <Shield size={20} />, x: 200, y: 200, label: 'Cero errores' },
+                { icon: <Upload size={24} />, x: 220, y: 50, label: 'Captura', sublabel: 'de imagen/video' },
+                { icon: <Eye size={24} />, x: 220, y: 110, label: 'Análisis', sublabel: 'visual automático' },
+                { icon: <CheckCircle size={24} />, x: 120, y: 180, label: 'Aprobado', sublabel: 'cumple estándares' },
+                { icon: <AlertCircle size={24} />, x: 320, y: 180, label: 'Defecto', sublabel: 'detectado' },
+                { icon: <Award size={24} />, x: 220, y: 250, label: 'Decisión', sublabel: 'instantánea' },
             ].map((node, i) => (
-                <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: node.x - 28, top: node.y - 28 }}>
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: node.x - 35, top: node.y - 35 }}>
+                    <div className={`w-[70px] h-[70px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity w-28 text-center">
-                        {node.label}
+                    <div className="absolute -bottom-11 left-1/2 -translate-x-1/2 text-center w-24">
+                        <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
+                        <p className="text-[10px] text-jhedai-primary/60">{node.sublabel}</p>
                     </div>
                 </motion.div>
             ))}
         </div>
     );
 
-    // Automatizaciones - Eficiencia operacional
+    // Automatizaciones: Flujo de trabajo automatizado
     const AutomationFlow = () => (
-        <div className="relative w-full h-64 flex items-center justify-center">
+        <div className="relative w-full h-72 flex items-center justify-center px-6">
             <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                 <defs>
                     <linearGradient id="autoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -250,47 +269,48 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                         <stop offset="100%" className="text-blue-500" style={{ stopColor: 'currentColor' }} />
                     </linearGradient>
                 </defs>
-                <motion.path d="M 100 130 L 200 130" stroke="url(#autoGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.2 }} />
-                <motion.path d="M 200 130 L 300 70" stroke="url(#autoGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.4 }} />
-                <motion.path d="M 200 130 L 300 190" stroke="url(#autoGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.4 }} />
-                <motion.path d="M 300 70 L 400 130" stroke="url(#autoGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.6 }} />
-                <motion.path d="M 300 190 L 400 130" stroke="url(#autoGrad)" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.6 }} />
+                <motion.path d="M 80 140 L 200 140" stroke="url(#autoGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.2 }} />
+                <motion.path d="M 200 140 L 320 80" stroke="url(#autoGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 200 140 L 320 200" stroke="url(#autoGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+                <motion.path d="M 320 80 L 440 140" stroke="url(#autoGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
+                <motion.path d="M 320 200 L 440 140" stroke="url(#autoGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.8 }} />
             </svg>
 
             {[
-                { icon: <FileSearch size={20} />, x: 100, y: 130, label: 'Tareas repetitivas' },
-                { icon: <Zap size={20} />, x: 200, y: 130, label: 'Automatización' },
-                { icon: <Mail size={20} />, x: 300, y: 70, label: 'Procesamiento de documentos' },
-                { icon: <Phone size={20} />, x: 300, y: 190, label: 'Gestión de solicitudes' },
-                { icon: <Clock size={20} />, x: 400, y: 130, label: 'Más tiempo para estrategia' },
+                { icon: <FileText size={24} />, x: 80, y: 140, label: 'Tarea', sublabel: 'manual repetitiva' },
+                { icon: <Zap size={24} />, x: 200, y: 140, label: 'Automatización', sublabel: 'inteligente' },
+                { icon: <Package size={24} />, x: 320, y: 80, label: 'Procesa', sublabel: 'documentos' },
+                { icon: <MessageCircle size={24} />, x: 320, y: 200, label: 'Responde', sublabel: 'solicitudes' },
+                { icon: <Clock size={24} />, x: 440, y: 140, label: 'Ahorro', sublabel: 'de tiempo' },
             ].map((node, i) => (
-                <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: node.x - 28, top: node.y - 28 }}>
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: node.x - 35, top: node.y - 35 }}>
+                    <div className={`w-[70px] h-[70px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                         {node.icon}
                     </div>
-                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity w-32 text-center">
-                        {node.label}
+                    <div className="absolute -bottom-11 left-1/2 -translate-x-1/2 text-center w-24">
+                        <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{node.label}</p>
+                        <p className="text-[10px] text-jhedai-primary/60">{node.sublabel}</p>
                     </div>
                 </motion.div>
             ))}
         </div>
     );
 
-    // Data Science - Experimentación y mejora
+    // Data Science: Ciclo de experimentación
     const DataScienceFlow = () => {
-        const radius = 80;
-        const centerX = 150;
-        const centerY = 130;
+        const radius = 90;
+        const centerX = 180;
+        const centerY = 140;
         const icons = [
-            { icon: <Lightbulb size={20} />, label: 'Ideas de negocio' },
-            { icon: <Target size={20} />, label: 'Pruebas controladas' },
-            { icon: <BarChart3 size={20} />, label: 'Análisis de resultados' },
-            { icon: <CheckCircle2 size={20} />, label: 'Validación científica' },
-            { icon: <Rocket size={20} />, label: 'Implementación segura' },
+            { icon: <Lightbulb size={24} />, label: 'Hipótesis', sublabel: 'de negocio' },
+            { icon: <Settings size={24} />, label: 'Diseño', sublabel: 'de experimento' },
+            { icon: <Play size={24} />, label: 'Ejecución', sublabel: 'controlada' },
+            { icon: <BarChart3 size={24} />, label: 'Análisis', sublabel: 'de resultados' },
+            { icon: <CheckCircle size={24} />, label: 'Validación', sublabel: 'estadística' },
         ];
 
         return (
-            <div className="relative w-full h-64 flex items-center justify-center">
+            <div className="relative w-full h-72 flex items-center justify-center">
                 <svg className="absolute inset-0 w-full h-full">
                     <defs>
                         <linearGradient id="dsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -298,7 +318,7 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                             <stop offset="100%" className="text-red-500" style={{ stopColor: 'currentColor' }} />
                         </linearGradient>
                     </defs>
-                    <motion.circle cx={centerX} cy={centerY} r={radius} stroke="url(#dsGrad)" strokeWidth="2" fill="none" strokeDasharray="5,5" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.5, ease: 'easeInOut' }} />
+                    <motion.circle cx={centerX} cy={centerY} r={radius} stroke="url(#dsGrad)" strokeWidth="3" fill="none" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 2, ease: 'easeInOut' }} />
                 </svg>
 
                 {icons.map((item, i) => {
@@ -307,21 +327,21 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
                     const y = centerY + radius * Math.sin(angle);
 
                     return (
-                        <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.2, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 28, top: y - 28 }}>
-                            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                        <motion.div key={i} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: i * 0.25, type: 'spring', stiffness: 200 }} className="absolute group" style={{ left: x - 35, top: y - 35 }}>
+                            <div className={`w-[70px] h-[70px] rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                                 {item.icon}
                             </div>
-                            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-jhedai-primary/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity w-28 text-center">
-                                {item.label}
+                            <div className="absolute -bottom-11 left-1/2 -translate-x-1/2 text-center w-24">
+                                <p className="text-[11px] font-bold text-jhedai-primary leading-tight">{item.label}</p>
+                                <p className="text-[10px] text-jhedai-primary/60">{item.sublabel}</p>
                             </div>
                         </motion.div>
                     );
                 })}
 
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8, type: 'spring', stiffness: 150 }} className="absolute z-20" style={{ left: centerX - 20, top: centerY - 20 }}>
-                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white shadow-lg`}>
-                        <Award size={18} />
-                    </div>
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} className="absolute z-20 text-center" style={{ left: centerX - 40, top: centerY - 15 }}>
+                    <p className="text-sm font-bold text-jhedai-primary">Método</p>
+                    <p className="text-xs text-jhedai-secondary">científico</p>
                 </motion.div>
             </div>
         );
