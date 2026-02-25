@@ -361,3 +361,4 @@ const ServiceFlowDiagram = ({ type, gradient }: ServiceFlowDiagramProps) => {
 };
 
 export default ServiceFlowDiagram;
+// v2.0 - Optimized spacing
