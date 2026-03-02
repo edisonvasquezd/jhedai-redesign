@@ -12,6 +12,7 @@ import {
     TrendingUp,
     Globe,
     Building2,
+    UserPlus,
 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 
@@ -111,6 +112,8 @@ interface TeamMember {
     role: string;
     image: string;
     description: string;
+    linkedin?: string;
+    bannerColor: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -119,24 +122,32 @@ const teamMembers: TeamMember[] = [
         role: 'CEO & Fundador',
         image: '/team/member1.jpg',
         description: 'Especialista en IA con más de 10 años de experiencia en transformación digital.',
+        linkedin: '#',
+        bannerColor: 'from-jhedai-primary to-jhedai-secondary',
     },
     {
         name: 'Nombre del Miembro 2',
         role: 'CTO',
         image: '/team/member2.jpg',
         description: 'Experto en Machine Learning y arquitectura de sistemas de IA.',
+        linkedin: '#',
+        bannerColor: 'from-jhedai-secondary to-jhedai-accent',
     },
     {
         name: 'Nombre del Miembro 3',
         role: 'Director de Innovación',
         image: '/team/member3.jpg',
         description: 'Líder en investigación y desarrollo de soluciones de IA aplicada.',
+        linkedin: '#',
+        bannerColor: 'from-indigo-600 to-jhedai-secondary',
     },
     {
         name: 'Nombre del Miembro 4',
         role: 'Head of Data Science',
         image: '/team/member4.jpg',
         description: 'Científico de datos con especialización en NLP y Computer Vision.',
+        linkedin: '#',
+        bannerColor: 'from-jhedai-primary to-indigo-700',
     },
 ];
 
@@ -442,7 +453,7 @@ const NosotrosPage = () => {
                         </p>
                     </motion.div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {teamMembers.map((member, i) => (
                             <motion.div
                                 key={i}
@@ -452,42 +463,55 @@ const NosotrosPage = () => {
                                 transition={{ delay: i * 0.1, duration: 0.6 }}
                                 className="group"
                             >
-                                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-jhedai-neutral/20 hover:border-jhedai-secondary/30">
-                                    {/* Image Container */}
-                                    <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-jhedai-primary/5 to-jhedai-secondary/5">
-                                        <img
-                                            src={member.image}
-                                            alt={member.name}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                            onError={(e) => {
-                                                // Fallback to placeholder if image doesn't exist
-                                                const target = e.target as HTMLImageElement;
-                                                target.style.display = 'none';
-                                                const parent = target.parentElement;
-                                                if (parent) {
-                                                    parent.innerHTML = `
-                                                        <div class="w-full h-full flex items-center justify-center">
-                                                            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-jhedai-primary to-jhedai-secondary flex items-center justify-center text-white text-4xl font-bold">
-                                                                ${member.name.charAt(0)}
-                                                            </div>
-                                                        </div>
-                                                    `;
-                                                }
-                                            }}
-                                        />
+                                <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
+                                    {/* Banner */}
+                                    <div className={`relative h-24 bg-gradient-to-r ${member.bannerColor}`}>
+                                        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:20px_20px]" />
                                     </div>
 
-                                    {/* Info Container */}
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-jhedai-primary mb-2 group-hover:text-jhedai-secondary transition-colors">
+                                    {/* Avatar */}
+                                    <div className="relative px-5 -mt-10 mb-3">
+                                        <div className="w-20 h-20 rounded-full border-4 border-white shadow-md bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 overflow-hidden">
+                                            <img
+                                                src={member.image}
+                                                alt={member.name}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    const target = e.target as HTMLImageElement;
+                                                    target.style.display = 'none';
+                                                    const parent = target.parentElement;
+                                                    if (parent) {
+                                                        parent.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-jhedai-primary to-jhedai-secondary text-white text-2xl font-bold">${member.name.charAt(0)}</div>`;
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Info */}
+                                    <div className="px-5 pb-5">
+                                        <h3 className="text-[15px] font-bold text-jhedai-primary leading-tight group-hover:text-jhedai-secondary transition-colors">
                                             {member.name}
                                         </h3>
-                                        <p className="text-jhedai-secondary font-semibold mb-3">
+                                        <p className="text-[13px] text-jhedai-primary/70 mt-0.5 mb-3 leading-tight">
                                             {member.role}
                                         </p>
-                                        <p className="text-sm text-jhedai-primary/70 leading-relaxed">
+                                        <p className="text-[12px] text-jhedai-primary/60 leading-relaxed border-t border-gray-100 pt-3 mb-4">
                                             {member.description}
                                         </p>
+
+                                        {/* Connect button */}
+                                        {member.linkedin && (
+                                            <a
+                                                href={member.linkedin}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full border-2 border-jhedai-primary/80 text-jhedai-primary text-[13px] font-semibold hover:bg-jhedai-primary hover:text-white transition-all duration-200"
+                                            >
+                                                <UserPlus size={14} />
+                                                Conectar
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </motion.div>
