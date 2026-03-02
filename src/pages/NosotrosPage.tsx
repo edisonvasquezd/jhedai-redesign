@@ -469,35 +469,26 @@ const NosotrosPage = () => {
                                 className="group"
                             >
                                 <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
-                                    {/* Photo area - diamond shape */}
-                                    <div className="flex justify-center pt-10 pb-6">
-                                        {/* Outer diamond border */}
-                                        <div
-                                            className="w-36 h-36 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-                                            style={{
-                                                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                                                background: 'linear-gradient(135deg, #00b4d8, #0a1628)',
-                                                padding: '3px',
+                                    {/* Photo area - full width with wave bottom */}
+                                    <div className="relative w-full h-52 overflow-hidden">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLImageElement;
+                                                target.style.display = 'none';
+                                                const parent = target.parentElement;
+                                                if (parent) {
+                                                    parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:3rem;font-weight:700">${member.name.charAt(0)}</div>`;
+                                                }
                                             }}
-                                        >
-                                            <div
-                                                className="w-full h-full overflow-hidden bg-gray-100"
-                                                style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
-                                            >
-                                                <img
-                                                    src={member.image}
-                                                    alt={member.name}
-                                                    className="w-full h-full object-cover"
-                                                    onError={(e) => {
-                                                        const target = e.target as HTMLImageElement;
-                                                        target.style.display = 'none';
-                                                        const parent = target.parentElement;
-                                                        if (parent) {
-                                                            parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:2rem;font-weight:700">${member.name.charAt(0)}</div>`;
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
+                                        />
+                                        {/* Wave SVG overlay */}
+                                        <div className="absolute bottom-0 left-0 w-full">
+                                            <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" className="w-full" style={{ display: 'block' }}>
+                                                <path d="M0,20 C100,40 300,0 400,20 L400,40 L0,40 Z" fill="white" />
+                                            </svg>
                                         </div>
                                     </div>
 
