@@ -469,27 +469,19 @@ const NosotrosPage = () => {
                                 className="group"
                             >
                                 <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
-                                    {/* Banner */}
-                                    <div
-                                        className="relative h-28"
-                                        style={{ background: `linear-gradient(135deg, ${member.bannerFrom}, ${member.bannerTo})` }}
-                                    >
-                                        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:20px_20px]" />
-                                    </div>
-
-                                    {/* Avatar */}
-                                    <div className="relative px-5 -mt-12 mb-4">
-                                        <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 overflow-hidden">
+                                    {/* Photo area */}
+                                    <div className="flex justify-center pt-8 pb-4">
+                                        <div className="w-32 h-32 rounded-full border-4 border-jhedai-secondary/30 shadow-lg overflow-hidden bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 group-hover:border-jhedai-secondary transition-colors duration-300">
                                             <img
                                                 src={member.image}
                                                 alt={member.name}
-                                                className="w-full h-full object-cover"
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                 onError={(e) => {
                                                     const target = e.target as HTMLImageElement;
                                                     target.style.display = 'none';
                                                     const parent = target.parentElement;
                                                     if (parent) {
-                                                        parent.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-jhedai-primary to-jhedai-secondary text-white text-2xl font-bold">${member.name.charAt(0)}</div>`;
+                                                        parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:2rem;font-weight:700">${member.name.charAt(0)}</div>`;
                                                     }
                                                 }}
                                             />
@@ -497,11 +489,11 @@ const NosotrosPage = () => {
                                     </div>
 
                                     {/* Info */}
-                                    <div className="px-5 pb-5">
+                                    <div className="px-5 pb-6 text-center">
                                         <h3 className="text-[15px] font-bold text-jhedai-primary leading-tight group-hover:text-jhedai-secondary transition-colors">
                                             {member.name}
                                         </h3>
-                                        <p className="text-[13px] text-jhedai-primary/70 mt-0.5 mb-3 leading-tight">
+                                        <p className="text-[13px] text-jhedai-secondary font-medium mt-0.5 mb-3 leading-tight">
                                             {member.role}
                                         </p>
                                         <p className="text-[12px] text-jhedai-primary/60 leading-relaxed border-t border-gray-100 pt-3 mb-4">
