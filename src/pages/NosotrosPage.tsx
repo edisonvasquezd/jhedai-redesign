@@ -469,22 +469,35 @@ const NosotrosPage = () => {
                                 className="group"
                             >
                                 <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
-                                    {/* Photo area */}
-                                    <div className="flex justify-center pt-8 pb-4">
-                                        <div className="w-32 h-32 rounded-full border-4 border-jhedai-secondary/30 shadow-lg overflow-hidden bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 group-hover:border-jhedai-secondary transition-colors duration-300">
-                                            <img
-                                                src={member.image}
-                                                alt={member.name}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                onError={(e) => {
-                                                    const target = e.target as HTMLImageElement;
-                                                    target.style.display = 'none';
-                                                    const parent = target.parentElement;
-                                                    if (parent) {
-                                                        parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:2rem;font-weight:700">${member.name.charAt(0)}</div>`;
-                                                    }
-                                                }}
-                                            />
+                                    {/* Photo area - diamond shape */}
+                                    <div className="flex justify-center pt-10 pb-6">
+                                        {/* Outer diamond border */}
+                                        <div
+                                            className="w-36 h-36 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                                            style={{
+                                                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                                                background: 'linear-gradient(135deg, #00b4d8, #0a1628)',
+                                                padding: '3px',
+                                            }}
+                                        >
+                                            <div
+                                                className="w-full h-full overflow-hidden bg-gray-100"
+                                                style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
+                                            >
+                                                <img
+                                                    src={member.image}
+                                                    alt={member.name}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.style.display = 'none';
+                                                        const parent = target.parentElement;
+                                                        if (parent) {
+                                                            parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:2rem;font-weight:700">${member.name.charAt(0)}</div>`;
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
 
