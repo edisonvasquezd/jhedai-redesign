@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Rocket,
@@ -16,7 +15,6 @@ import {
   UserPlus,
 } from "lucide-react";
 import SEOHead from "../components/SEOHead";
-import { getTeamMembers, type TeamMember } from "../lib/api";
 
 interface Milestone {
   date: string;
@@ -117,16 +115,50 @@ const stats = [
   },
 ];
 
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  description: string;
+  linkedin?: string;
+}
+
+const teamMembers: TeamMember[] = [
+  {
+    name: "Nombre del Miembro 1",
+    role: "CEO & Fundador",
+    image: "/team/member1.jpg",
+    description:
+      "Especialista en IA con más de 10 años de experiencia en transformación digital.",
+    linkedin: "",
+  },
+  {
+    name: "Nombre del Miembro 2",
+    role: "CTO",
+    image: "/team/member2.jpg",
+    description:
+      "Experto en Machine Learning y arquitectura de sistemas de IA.",
+    linkedin: "",
+  },
+  {
+    name: "Nombre del Miembro 3",
+    role: "Director de Innovación",
+    image: "/team/member3.jpg",
+    description:
+      "Líder en investigación y desarrollo de soluciones de IA aplicada.",
+    linkedin: "",
+  },
+  {
+    name: "Nombre del Miembro 4",
+    role: "Head of Data Science",
+    image: "/team/member4.jpg",
+    description:
+      "Científico de datos con especialización en NLP y Computer Vision.",
+    linkedin: "",
+  },
+];
+
 const NosotrosPage = () => {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [loadingTeam, setLoadingTeam] = useState(true);
-
-  useEffect(() => {
-    getTeamMembers()
-      .then(setTeamMembers)
-      .finally(() => setLoadingTeam(false));
-  }, []);
-
   return (
     <>
       <SEOHead
@@ -446,91 +478,75 @@ const NosotrosPage = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {loadingTeam
-              ? Array.from({ length: 4 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 animate-pulse"
-                  >
-                    <div className="w-full h-52 bg-gray-200" />
-                    <div className="px-5 pt-4 pb-6 space-y-3">
-                      <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto" />
-                      <div className="h-3 bg-gray-100 rounded w-1/2 mx-auto" />
-                      <div className="h-3 bg-gray-100 rounded w-full" />
-                      <div className="h-3 bg-gray-100 rounded w-5/6 mx-auto" />
-                      <div className="h-8 bg-gray-200 rounded-full mt-4" />
+            {teamMembers.map((member, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="group"
+              >
+                <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
+                  {/* Photo area - full width with wave bottom */}
+                  <div className="relative w-full h-52 overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = "none";
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:3rem;font-weight:700">${member.name.charAt(0)}</div>`;
+                        }
+                      }}
+                    />
+                    {/* Wave SVG overlay */}
+                    <div className="absolute bottom-0 left-0 w-full">
+                      <svg
+                        viewBox="0 0 400 40"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full"
+                        style={{ display: "block" }}
+                      >
+                        <path
+                          d="M0,20 C100,40 300,0 400,20 L400,40 L0,40 Z"
+                          fill="white"
+                        />
+                      </svg>
                     </div>
                   </div>
-                ))
-              : teamMembers.map((member, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.6 }}
-                    className="group"
-                  >
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-jhedai-secondary/40">
-                      {/* Photo area - full width with wave bottom */}
-                      <div className="relative w-full h-52 overflow-hidden">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = "none";
-                            const parent = target.parentElement;
-                            if (parent) {
-                              parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#00b4d8);color:white;font-size:3rem;font-weight:700">${member.name.charAt(0)}</div>`;
-                            }
-                          }}
-                        />
-                        {/* Wave SVG overlay */}
-                        <div className="absolute bottom-0 left-0 w-full">
-                          <svg
-                            viewBox="0 0 400 40"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-full"
-                            style={{ display: "block" }}
-                          >
-                            <path
-                              d="M0,20 C100,40 300,0 400,20 L400,40 L0,40 Z"
-                              fill="white"
-                            />
-                          </svg>
-                        </div>
-                      </div>
 
-                      {/* Info */}
-                      <div className="px-5 pt-4 pb-6 text-center">
-                        <h3 className="text-[15px] font-bold text-jhedai-primary leading-tight group-hover:text-jhedai-secondary transition-colors">
-                          {member.name}
-                        </h3>
-                        <p className="text-[13px] text-jhedai-secondary font-medium mt-0.5 mb-3 leading-tight">
-                          {member.role}
-                        </p>
-                        <p className="text-[12px] text-jhedai-primary/60 leading-relaxed border-t border-gray-100 pt-3 mb-4">
-                          {member.description}
-                        </p>
+                  {/* Info */}
+                  <div className="px-5 pt-4 pb-6 text-center">
+                    <h3 className="text-[15px] font-bold text-jhedai-primary leading-tight group-hover:text-jhedai-secondary transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className="text-[13px] text-jhedai-secondary font-medium mt-0.5 mb-3 leading-tight">
+                      {member.role}
+                    </p>
+                    <p className="text-[12px] text-jhedai-primary/60 leading-relaxed border-t border-gray-100 pt-3 mb-4">
+                      {member.description}
+                    </p>
 
-                        {/* Connect button */}
-                        {member.linkedin && (
-                          <a
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full border-2 border-jhedai-primary/80 text-jhedai-primary text-[13px] font-semibold hover:bg-jhedai-primary hover:text-white transition-all duration-200"
-                          >
-                            <UserPlus size={14} />
-                            Conectar
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    {/* Connect button */}
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full border-2 border-jhedai-primary/80 text-jhedai-primary text-[13px] font-semibold hover:bg-jhedai-primary hover:text-white transition-all duration-200"
+                      >
+                        <UserPlus size={14} />
+                        Conectar
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
 

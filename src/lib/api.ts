@@ -1,5 +1,39 @@
 const API_BASE = import.meta.env.VITE_API_URL || "";
 
+// Caché en localStorage con TTL — evita llamadas repetidas a la API
+const localCache = {
+  get<T>(key: string): T | null {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      const { data, expires } = JSON.parse(raw) as { data: T; expires: number };
+      if (Date.now() > expires) {
+        localStorage.removeItem(key);
+        return null;
+      }
+      return data;
+    } catch {
+      return null;
+    }
+  },
+  set<T>(key: string, data: T, ttlMs: number): void {
+    try {
+      localStorage.setItem(
+        key,
+        JSON.stringify({ data, expires: Date.now() + ttlMs }),
+      );
+    } catch {
+      /* storage lleno — ignorar */
+    }
+  },
+};
+
+const TTL = {
+  posts: 60 * 60 * 1000, // 1 hora — lista de posts
+  post: 6 * 60 * 60 * 1000, // 6 horas — post individual
+  categories: 24 * 60 * 60 * 1000, // 24 horas — categorías (casi nunca cambian)
+};
+
 export interface TeamMember {
   name: string;
   role: string;
@@ -243,6 +277,10 @@ export async function getPosts(
 ): Promise<PaginatedResponse<BlogPost>> {
   const { page = 1, limit = 9, category } = params;
 
+  const cacheKey = `cache:posts:${page}:${limit}:${category || ""}`;
+  const hit = localCache.get<PaginatedResponse<BlogPost>>(cacheKey);
+  if (hit) return hit;
+
   if (API_BASE) {
     const searchParams = new URLSearchParams();
     searchParams.set("page", String(page));
@@ -252,14 +290,15 @@ export async function getPosts(
     const res = await fetch(`${API_BASE}/api/blog/posts?${searchParams}`);
     if (!res.ok) throw new Error("Error fetching posts");
     const json = await res.json();
-    // jhedai-cards returns { error, data: { data, page, totalPages, total } }
     const payload = json.data || json;
-    return {
+    const result: PaginatedResponse<BlogPost> = {
       data: (payload.data || []).map(normalizePost),
       page: payload.page || page,
       totalPages: payload.totalPages || 1,
       total: payload.total || 0,
     };
+    localCache.set(cacheKey, result, TTL.posts);
+    return result;
   }
 
   // Mock: filter, paginate
@@ -281,11 +320,17 @@ export async function getPosts(
 }
 
 export async function getPost(slug: string): Promise<BlogPost | null> {
+  const cacheKey = `cache:post:${slug}`;
+  const hit = localCache.get<BlogPost>(cacheKey);
+  if (hit) return hit;
+
   if (API_BASE) {
     const res = await fetch(`${API_BASE}/api/blog/posts/${slug}`);
     if (!res.ok) return null;
     const json = await res.json();
-    return normalizePost(json.data || json);
+    const result = normalizePost(json.data || json);
+    localCache.set(cacheKey, result, TTL.post);
+    return result;
   }
 
   return mockPosts.find((p) => p.slug === slug) || null;
@@ -310,11 +355,17 @@ export async function getRelatedPosts(
 }
 
 export async function getCategories(): Promise<string[]> {
+  const cacheKey = "cache:categories";
+  const hit = localCache.get<string[]>(cacheKey);
+  if (hit) return hit;
+
   if (API_BASE) {
     const res = await fetch(`${API_BASE}/api/blog/categories`);
     if (!res.ok) return [];
     const json = await res.json();
-    return json.data || [];
+    const result: string[] = json.data || [];
+    localCache.set(cacheKey, result, TTL.categories);
+    return result;
   }
   return ["Industria", "Regulación", "Tendencias", "Formación"];
 }
