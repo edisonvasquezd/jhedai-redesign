@@ -109,7 +109,7 @@ const phases: Phase[] = [
 
 const solutions = [
   {
-    icon: <Brain size={32} />,
+    icon: <Brain size={20} />,
     title: "Análisis de Datos y Machine Learning",
     gradient: "from-blue-500 to-cyan-500",
     items: [
@@ -118,7 +118,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Eye size={32} />,
+    icon: <Eye size={20} />,
     title: "Computer Vision",
     gradient: "from-cyan-500 to-blue-600",
     items: [
@@ -127,7 +127,7 @@ const solutions = [
     ],
   },
   {
-    icon: <MessageSquare size={32} />,
+    icon: <MessageSquare size={20} />,
     title: "IA Conversacional y NLP",
     gradient: "from-blue-600 to-indigo-600",
     items: [
@@ -136,7 +136,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Bot size={32} />,
+    icon: <Bot size={20} />,
     title: "Agentes Autónomos",
     gradient: "from-indigo-500 to-purple-600",
     items: [
@@ -145,7 +145,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Zap size={32} />,
+    icon: <Zap size={20} />,
     title: "Automatización Inteligente",
     gradient: "from-violet-500 to-fuchsia-600",
     items: [
@@ -154,7 +154,7 @@ const solutions = [
     ],
   },
   {
-    icon: <PieChart size={32} />,
+    icon: <PieChart size={20} />,
     title: "Business Intelligence",
     gradient: "from-green-500 to-emerald-500",
     items: [
@@ -163,7 +163,7 @@ const solutions = [
     ],
   },
   {
-    icon: <FlaskConical size={32} />,
+    icon: <FlaskConical size={20} />,
     title: "I+D y Laboratorio de Innovación",
     gradient: "from-purple-500 to-pink-500",
     items: [
@@ -253,7 +253,7 @@ const MetodologiaPage = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-3xl mx-auto mb-16"
+            className="mx-auto mb-16" style={{ maxWidth: "537px" }}
           >
             <div className="relative bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-8 lg:p-12 border border-jhedai-neutral/20">
               <svg
@@ -379,7 +379,7 @@ const MetodologiaPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto"
+            className="mx-auto" style={{ maxWidth: "537px" }}
           >
             <img
               src="/grafica_metodologia.jpg"
@@ -475,24 +475,25 @@ const MetodologiaPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: k * 0.1 }}
-                        className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-jhedai-neutral/20 hover:border-jhedai-secondary/30 transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+                        className="group relative bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border border-jhedai-neutral/20 hover:border-jhedai-secondary/30 transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
                       >
                         <div
                           className={`absolute inset-0 bg-gradient-to-br ${sol.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                         />
 
-                        <div className="relative z-10">
-                          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div className="relative z-10 flex items-start gap-4">
+                          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary group-hover:scale-110 transition-transform duration-300">
                             {sol.icon}
                           </div>
-                          <h4 className="text-lg font-bold text-jhedai-primary mb-4 group-hover:text-jhedai-secondary transition-colors">
+                          <div>
+                          <h4 className="text-sm font-bold text-jhedai-primary mb-2 group-hover:text-jhedai-secondary transition-colors leading-tight">
                             {sol.title}
                           </h4>
-                          <ul className="space-y-3">
+                          <ul className="space-y-2">
                             {sol.items.map((item, m) => (
                               <li
                                 key={m}
-                                className="flex items-start gap-3 text-[15px] text-jhedai-primary/60 leading-relaxed"
+                                className="flex items-start gap-2 text-xs text-jhedai-primary/60 leading-relaxed"
                               >
                                 <CheckCircle2
                                   size={14}
@@ -502,6 +503,7 @@ const MetodologiaPage = () => {
                               </li>
                             ))}
                           </ul>
+                          </div>
                         </div>
                       </motion.div>
                     ))}
