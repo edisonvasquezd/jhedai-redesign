@@ -257,7 +257,7 @@ const MetodologiaPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-8 lg:p-12 border border-jhedai-neutral/20">
+            <div className="relative bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-4 border border-jhedai-neutral/20">
               <svg
                 viewBox="0 0 600 480"
                 className="w-full h-auto"
@@ -379,12 +379,12 @@ const MetodologiaPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex items-center justify-center"
+            className="h-full"
           >
             <img
               src="/grafica_metodologia.jpg"
               alt="Gráfica de la Metodología Introgresiva de JhedAI"
-              className="w-full h-auto rounded-2xl shadow-lg border border-jhedai-neutral/20"
+              className="w-full h-full object-contain rounded-2xl shadow-lg border border-jhedai-neutral/20"
             />
           </motion.div>
 
