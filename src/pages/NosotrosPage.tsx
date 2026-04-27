@@ -281,7 +281,7 @@ const NosotrosPage = () => {
         </div>
 
         {/* Mission & Vision */}
-        <div className="container mb-32">
+        <div className="container mt-8 mb-32">
           <div className="grid lg:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}

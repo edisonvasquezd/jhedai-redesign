@@ -248,15 +248,17 @@ const ServiciosPage = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 + 0.3 }}
-                className="group text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50/30 border border-jhedai-neutral/20 hover:border-jhedai-secondary/40 hover:shadow-lg transition-all duration-300"
+                className="group flex items-start gap-4 p-4 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50/30 border border-jhedai-neutral/20 hover:border-jhedai-secondary/40 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-jhedai-secondary/10 to-jhedai-primary/5 flex items-center justify-center text-jhedai-secondary mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-jhedai-secondary/10 to-jhedai-primary/5 flex items-center justify-center text-jhedai-secondary group-hover:scale-110 transition-transform duration-300">
                   {pillar.icon}
                 </div>
-                <h3 className="font-bold text-jhedai-primary mb-1 text-sm">
-                  {pillar.title}
-                </h3>
-                <p className="text-xs text-jhedai-primary/60">{pillar.desc}</p>
+                <div>
+                  <h3 className="font-bold text-jhedai-primary mb-1 text-sm leading-tight">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs text-jhedai-primary/60">{pillar.desc}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
