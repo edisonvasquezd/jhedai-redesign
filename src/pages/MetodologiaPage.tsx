@@ -247,13 +247,15 @@ const MetodologiaPage = () => {
             </p>
           </motion.div>
 
+          {/* Tril Diagram + Gráfica side by side */}
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+
           {/* Tril Diagram - Visual Triangle */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mx-auto mb-16" style={{ maxWidth: "537px" }}
           >
             <div className="relative bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-8 lg:p-12 border border-jhedai-neutral/20">
               <svg
@@ -370,16 +372,14 @@ const MetodologiaPage = () => {
               </svg>
             </div>
           </motion.div>
-        </div>
 
-        {/* Gráfica de Metodología */}
-        <div className="container pb-16">
+          {/* Gráfica de Metodología */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mx-auto" style={{ maxWidth: "537px" }}
+            className="flex items-center justify-center"
           >
             <img
               src="/grafica_metodologia.jpg"
@@ -387,7 +387,9 @@ const MetodologiaPage = () => {
               className="w-full h-auto rounded-2xl shadow-lg border border-jhedai-neutral/20"
             />
           </motion.div>
-        </div>
+
+          </div>{/* end grid */}
+        </div>{/* end container py-20 */}
 
         {/* Phases */}
         {phases.map((phase, i) => (
