@@ -98,14 +98,14 @@ const Footer = () => {
                   Blog
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="/#assessment"
                   className="hover:text-jhedai-secondary transition-colors"
                 >
                   Assessment
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 

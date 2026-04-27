@@ -47,12 +47,12 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            <a
+            {/* <a
               href="#assessment"
               className="hover:text-jhedai-primary transition-colors"
             >
               Assessment
-            </a>
+            </a> */}
           </div>
         </div>
 
