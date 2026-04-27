@@ -481,29 +481,23 @@ const MetodologiaPage = () => {
                           className={`absolute inset-0 bg-gradient-to-br ${sol.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                         />
 
-                        <div className="relative z-10 flex items-start gap-4">
-                          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary group-hover:scale-110 transition-transform duration-300">
+                        <div className="relative z-10">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary mb-3 group-hover:scale-110 transition-transform duration-300">
                             {sol.icon}
                           </div>
-                          <div>
                           <h4 className="text-sm font-bold text-jhedai-primary mb-2 group-hover:text-jhedai-secondary transition-colors leading-tight">
                             {sol.title}
                           </h4>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1">
                             {sol.items.map((item, m) => (
                               <li
                                 key={m}
-                                className="flex items-start gap-2 text-xs text-jhedai-primary/60 leading-relaxed"
+                                className="text-xs text-jhedai-primary/60 leading-relaxed"
                               >
-                                <CheckCircle2
-                                  size={14}
-                                  className="text-jhedai-secondary shrink-0 mt-1"
-                                />
                                 {item}
                               </li>
                             ))}
                           </ul>
-                          </div>
                         </div>
                       </motion.div>
                     ))}
