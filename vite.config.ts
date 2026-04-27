@@ -3,11 +3,10 @@ import react from "@vitejs/plugin-react";
 import sitemap from "vite-plugin-sitemap";
 import viteCompression from "vite-plugin-compression";
 
-// Fetch blog slugs from jhedai-cards API for dynamic sitemap
 async function getBlogSlugs(): Promise<string[]> {
   try {
     const res = await fetch(
-      "https://admin-jhedai.edison-985.workers.dev/api/blog/sitemap-data",
+      "https://jhedai-api.edison-985.workers.dev/api/sitemap-data",
     );
     const json = (await res.json()) as {
       data?: Array<{ slug: string }>;
@@ -39,44 +38,8 @@ export default defineConfig(async () => {
       sitemap({
         hostname: "https://jhedai.com",
         dynamicRoutes: [...staticRoutes, ...blogRoutes],
-        robots: [
-          {
-            userAgent: "*",
-            allow: "/",
-          },
-          {
-            userAgent: "GPTBot",
-            allow: "/",
-            crawlDelay: 2,
-          },
-          {
-            userAgent: "ChatGPT-User",
-            allow: "/",
-            crawlDelay: 2,
-          },
-          {
-            userAgent: "Claude-Web",
-            allow: "/",
-          },
-          {
-            userAgent: "anthropic-ai",
-            allow: "/",
-          },
-          {
-            userAgent: "Google-Extended",
-            allow: "/",
-          },
-          {
-            userAgent: "PerplexityBot",
-            allow: "/",
-            crawlDelay: 1,
-          },
-          {
-            userAgent: "YouBot",
-            allow: "/",
-            crawlDelay: 1,
-          },
-        ],
+        lastmod: new Date(),
+        // robots config removed — public/robots.txt is the authoritative source
       }),
       // Gzip compression
       viteCompression({

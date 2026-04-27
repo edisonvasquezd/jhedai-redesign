@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import SEOHead from "../components/SEOHead";
 import BlogCard from "../components/BlogCard";
 import Pagination from "../components/Pagination";
+import { BreadcrumbSchema } from "../components/schemas/BreadcrumbSchema";
 import {
   getPosts,
   getCategories,
@@ -80,6 +82,28 @@ const BlogListPage = () => {
             name: "JhedAi",
           },
         }}
+      />
+      {/* rel=prev/next dentro de Helmet para que vayan al <head> */}
+      <Helmet>
+        {data && currentPage > 1 && (
+          <link
+            rel="prev"
+            href={`https://jhedai.com/blog${currentPage === 2 ? "" : `?page=${currentPage - 1}`}`}
+          />
+        )}
+        {data && currentPage < (data?.totalPages ?? 0) && (
+          <link
+            rel="next"
+            href={`https://jhedai.com/blog?page=${currentPage + 1}`}
+          />
+        )}
+      </Helmet>
+      {/* BreadcrumbList JSON-LD */}
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: "https://jhedai.com/" },
+          { name: "Blog", url: "https://jhedai.com/blog" },
+        ]}
       />
 
       <div className="pt-28 pb-24 bg-white">

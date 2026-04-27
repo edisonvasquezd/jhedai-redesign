@@ -162,7 +162,7 @@ function normalizePost(raw: any): BlogPost {
     primaryAnswer: (raw.primary_answer as string) || undefined,
     speakableSelectors: Array.isArray(raw.speakable_selectors)
       ? (raw.speakable_selectors as string[])
-      : ["h1", ".post-excerpt"],
+      : ["h1", ".article-intro", "h2"],
   };
 }
 

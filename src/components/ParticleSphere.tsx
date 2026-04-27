@@ -11,7 +11,7 @@ import { useInViewport } from "../hooks/useInViewport";
 // Configuration for the giant particle sphere
 const SPHERE_CONFIG = {
   baseParticleCount: 80000, // Base count for high-end desktop
-  radius: 4.55, // Reduced by 30% from 6.5
+  radius: 2.275, // Reduced to 50% of previous 4.55
   pulseAmplitude: 0.06,
   pulseSpeed: 0.4,
   rotationSpeed: { x: 0.03, y: 0.05, z: 0.01 }, // radians/second

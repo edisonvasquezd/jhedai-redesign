@@ -1,0 +1,21 @@
+# WordPress legacy admin paths
+/wp-admin/*     /    301
+/wp-login.php   /    301
+/wp-content/*   /    301
+
+# WordPress feed paths
+/feed           /blog    301
+/feed/          /blog    301
+
+# WordPress taxonomy archives
+/category/*     /blog    301
+/tag/*          /blog    301
+/author/*       /blog    301
+
+# WordPress posts sin /blog/ prefix -> React /blog/slug
+# CRITICO: Las URLs de WP son jhedai.com/slug (sin /blog/)
+# Esto preserva el SEO de los 89 posts existentes
+/:slug          /blog/:slug    301
+
+# SPA fallback — CRITICO: sin esto las URLs directas dan 404 en Cloudflare Pages
+/*    /index.html    200

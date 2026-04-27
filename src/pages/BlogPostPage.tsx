@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Clock } from "lucide-react";
+import DOMPurify from "dompurify";
 import SEOHead from "../components/SEOHead";
 import { SITE_URL } from "../components/SEOHead";
 import BlogCard, { categoryColors } from "../components/BlogCard";
@@ -117,6 +118,8 @@ const BlogPostPage = () => {
   const blogPostingLd = {
     "@context": "https://schema.org",
     "@type": post.schemaType || "BlogPosting",
+    "@id": `${SITE_URL}/blog/${post.slug}#article`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     headline: post.title,
     description: post.primaryAnswer || post.metaDescription || post.excerpt,
     image: post.featuredImage
@@ -133,7 +136,12 @@ const BlogPostPage = () => {
     articleSection: post.category,
     inLanguage: "es-CL",
     keywords: post.tags.join(", "),
-    author: authorLd,
+    author: {
+      ...authorLd,
+      ...(post.author.type === "Person" && post.tags.length > 0
+        ? { knowsAbout: [post.category, ...post.tags] }
+        : {}),
+    },
     publisher: {
       "@type": "Organization",
       name: "JhedAi",
@@ -147,6 +155,14 @@ const BlogPostPage = () => {
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE_URL}/blog/${post.slug}`,
+    },
+    speakableSpecification: {
+      "@type": "SpeakableSpecification",
+      cssSelector: post.speakableSelectors?.length
+        ? post.speakableSelectors
+        : post.primaryAnswer
+          ? ["h1", ".article-intro", "h2"]
+          : ["h1", "h2"],
     },
   };
 
@@ -168,7 +184,7 @@ const BlogPostPage = () => {
         name: post.category,
         item: `${SITE_URL}/blog?category=${post.category}`,
       },
-      { "@type": "ListItem", position: 4, name: post.title },
+      { "@type": "ListItem", position: 4, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
     ],
   };
 
@@ -198,6 +214,10 @@ const BlogPostPage = () => {
         canonical={post.canonicalUrl || `/blog/${post.slug}`}
         ogType="article"
         ogImage={post.ogImage || post.featuredImage}
+        ogTitle={post.ogTitle}
+        ogDescription={post.ogDescription}
+        twitterTitle={post.twitterTitle}
+        twitterDescription={post.twitterDescription}
         article={{
           publishedTime: post.publishedAt,
           modifiedTime: post.updatedAt,
@@ -316,13 +336,25 @@ const BlogPostPage = () => {
             </motion.div>
           )}
 
+          {/* Primary answer — speakable + AEO */}
+          {post.primaryAnswer && (
+            <p className="article-intro text-lg text-jhedai-primary/80 leading-relaxed mb-6">
+              {post.primaryAnswer}
+            </p>
+          )}
+
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="prose"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(post.content || "", {
+                ADD_TAGS: ["iframe"],
+                ADD_ATTR: ["allowfullscreen", "frameborder", "allow", "src", "width", "height"],
+              }),
+            }}
           />
 
           {/* FAQ — AEO (+30% AI citations with FAQPage schema) */}

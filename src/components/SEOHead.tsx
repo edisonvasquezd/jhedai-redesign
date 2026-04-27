@@ -6,7 +6,13 @@ interface SEOHeadProps {
   canonical?: string;
   ogType?: string;
   ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   twitterCard?: "summary" | "summary_large_image" | "app" | "player";
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterSite?: string;
+  twitterCreator?: string;
   noindex?: boolean;
   article?: {
     publishedTime?: string;
@@ -27,13 +33,23 @@ const SEOHead = ({
   canonical,
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
+  ogTitle,
+  ogDescription,
   twitterCard = "summary_large_image",
+  twitterTitle,
+  twitterDescription,
+  twitterSite = "@jhedai",
+  twitterCreator,
   noindex = false,
   article,
   jsonLd,
 }: SEOHeadProps) => {
   const fullTitle = `${title} | ${SITE_NAME}`;
-  const canonicalUrl = canonical ? `${SITE_URL}${canonical}` : undefined;
+  const canonicalUrl = canonical
+    ? canonical.startsWith("http")
+      ? canonical
+      : `${SITE_URL}${canonical}`
+    : undefined;
 
   return (
     <Helmet>
@@ -48,8 +64,8 @@ const SEOHead = ({
 
       {/* Open Graph */}
       <meta property="og:type" content={ogType} />
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={ogTitle || fullTitle} />
+      <meta property="og:description" content={ogDescription || description} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="es_CL" />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
@@ -77,8 +93,10 @@ const SEOHead = ({
 
       {/* Twitter Card */}
       <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:site" content={twitterSite} />
+      {twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
+      <meta name="twitter:title" content={twitterTitle || ogTitle || fullTitle} />
+      <meta name="twitter:description" content={twitterDescription || ogDescription || description} />
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:image:alt" content={title} />
 

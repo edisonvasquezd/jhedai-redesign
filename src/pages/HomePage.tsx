@@ -13,6 +13,7 @@ import SEOHead from "../components/SEOHead";
 import Analytics from "../components/Analytics";
 import { OrganizationSchema } from "../components/schemas/OrganizationSchema";
 import { BreadcrumbSchema } from "../components/schemas/BreadcrumbSchema";
+import { WebSiteSchema } from "../components/schemas/WebSiteSchema";
 
 const ParticleSphere = lazy(() => import("../components/ParticleSphere"));
 
@@ -25,6 +26,7 @@ const HomePage = () => {
         canonical="/"
       />
       <Analytics />
+      <WebSiteSchema />
       <OrganizationSchema />
       <BreadcrumbSchema
         items={[{ name: "Inicio", url: "https://jhedai.com" }]}
