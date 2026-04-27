@@ -253,7 +253,7 @@ const MetodologiaPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mx-auto" style={{ maxWidth: "537px" }}
+            className="mx-auto" style={{ maxWidth: "780px" }}
           >
             <img
               src="/grafica_metodologia.jpg"
