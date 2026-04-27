@@ -175,7 +175,7 @@ const EcosistemaPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-2xl mx-auto"
+            className="mx-auto" style={{ maxWidth: "537px" }}
           >
             <img
               src="/Ecosistema JhedAi.png"

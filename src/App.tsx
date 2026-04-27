@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 
@@ -20,22 +21,26 @@ const PageLoader = () => (
 );
 
 function App() {
+  const location = useLocation();
+
   return (
     <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/servicios" element={<ServiciosPage />} />
-          <Route path="/nosotros" element={<NosotrosPage />} />
-          <Route path="/metodologia" element={<MetodologiaPage />} />
-          <Route path="/ecosistema" element={<EcosistemaPage />} />
-          <Route path="/blog" element={<BlogListPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage />} />
-          <Route path="/contacto" element={<ContactoPage />} />
-          <Route path="/privacidad" element={<PrivacidadPage />} />
-          <Route path="/terminos" element={<TerminosPage />} />
-        </Route>
-      </Routes>
+      <AnimatePresence mode="wait" initial={false}>
+        <Routes location={location} key={location.key}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/servicios" element={<ServiciosPage />} />
+            <Route path="/nosotros" element={<NosotrosPage />} />
+            <Route path="/metodologia" element={<MetodologiaPage />} />
+            <Route path="/ecosistema" element={<EcosistemaPage />} />
+            <Route path="/blog" element={<BlogListPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/privacidad" element={<PrivacidadPage />} />
+            <Route path="/terminos" element={<TerminosPage />} />
+          </Route>
+        </Routes>
+      </AnimatePresence>
     </Suspense>
   );
 }

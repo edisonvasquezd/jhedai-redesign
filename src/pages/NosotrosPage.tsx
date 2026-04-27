@@ -536,19 +536,29 @@ const NosotrosPage = () => {
                 <div className="bg-white h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-jhedai-neutral/20 hover:border-jhedai-secondary/40 flex flex-col">
                   {/* Photo area */}
                   <div className="relative w-full h-72 overflow-hidden bg-gradient-to-br from-jhedai-primary to-jhedai-secondary">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = "none";
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#003865,#00A9E0);color:white;font-size:3rem;font-weight:700">${member.name.charAt(0)}</div>`;
-                        }
-                      }}
-                    />
+                    <picture>
+                      <source
+                        srcSet={member.image.replace(/\.(png|jpg|jpeg)$/i, ".webp")}
+                        type="image/webp"
+                      />
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        width={400}
+                        height={288}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = "none";
+                          const container = target.closest("picture")?.parentElement;
+                          if (container) {
+                            container.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#003865,#00A9E0);color:white;font-size:3rem;font-weight:700">${member.name.charAt(0)}</div>`;
+                          }
+                        }}
+                      />
+                    </picture>
                     {/* Subtle bottom edge */}
                     <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent" />
                   </div>
@@ -573,10 +583,10 @@ const NosotrosPage = () => {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.6 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.12, duration: 0.55, ease: "easeOut" }}
                   className="group w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-19.2px)]"
                 >
                   {member.linkedin ? (

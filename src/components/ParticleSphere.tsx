@@ -20,9 +20,15 @@ const SPHERE_CONFIG = {
   escapePercentage: 0.12, // 12% of particles escape the sphere
 };
 
+// Bounds in world units visible at z=0 with camera at z=20, fov=50
+// half-height = tan(25°) * 20 ≈ 9.32, half-width ≈ 16.57 (16:9)
+const BOUNCE_BOUNDS = { x: 13.5, y: 7 };
+const BOUNCE_SPEED = { x: 0.3, y: 0.19 }; // world units per second
+
 const SphereParticles = () => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const velocity = useRef({ x: BOUNCE_SPEED.x, y: BOUNCE_SPEED.y });
 
   // Calculate particle count based on device performance
   const particleCount = getParticleCount(SPHERE_CONFIG.baseParticleCount);
@@ -165,7 +171,7 @@ const SphereParticles = () => {
     });
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!pointsRef.current || !materialRef.current) return;
     const t = state.clock.getElapsedTime();
 
@@ -173,6 +179,20 @@ const SphereParticles = () => {
     pointsRef.current.rotation.x = t * SPHERE_CONFIG.rotationSpeed.x;
     pointsRef.current.rotation.y = t * SPHERE_CONFIG.rotationSpeed.y;
     pointsRef.current.rotation.z = t * SPHERE_CONFIG.rotationSpeed.z;
+
+    // === ANIMATION LAYER 5: Bouncing translation ===
+    const pos = pointsRef.current.position;
+    pos.x += velocity.current.x * delta;
+    pos.y += velocity.current.y * delta;
+
+    if (pos.x > BOUNCE_BOUNDS.x || pos.x < -BOUNCE_BOUNDS.x) {
+      velocity.current.x *= -1;
+      pos.x = Math.sign(pos.x) * BOUNCE_BOUNDS.x;
+    }
+    if (pos.y > BOUNCE_BOUNDS.y || pos.y < -BOUNCE_BOUNDS.y) {
+      velocity.current.y *= -1;
+      pos.y = Math.sign(pos.y) * BOUNCE_BOUNDS.y;
+    }
 
     // Update shader time uniform
     materialRef.current.uniforms.uTime.value = t;

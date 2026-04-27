@@ -1,5 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
+import { useReducedMotion } from "framer-motion";
 import * as THREE from "three";
 
 const FloatingTorus = ({
@@ -74,6 +75,19 @@ const FloatingSphere = ({
 };
 
 const Background3D = () => {
+  const prefersReduced = useReducedMotion();
+  const [isTabVisible, setIsTabVisible] = useState(
+    () => document.visibilityState === "visible",
+  );
+
+  useEffect(() => {
+    const onVisibilityChange = () =>
+      setIsTabVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, []);
+
   const shapes = useMemo(
     () => ({
       tori: [
@@ -109,9 +123,15 @@ const Background3D = () => {
     [],
   );
 
+  if (prefersReduced) return null;
+
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 10], fov: 60 }} dpr={[1, 1.5]}>
+      <Canvas
+        camera={{ position: [0, 0, 10], fov: 60 }}
+        dpr={[1, 1.5]}
+        frameloop={isTabVisible ? "always" : "never"}
+      >
         <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={1} color="#D4AF37" />
         <pointLight position={[-10, -10, 5]} intensity={0.5} color="#8B5CF6" />
