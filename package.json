@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name=jhedai",
+    "deploy:cloudflare": "npm run build && cp public/robots.txt dist/robots.txt && npx wrangler pages deploy dist --project-name=jhedai",
     "dev:cloudflare": "npx wrangler pages dev dist",
     "preview:cloudflare": "npm run build && npm run dev:cloudflare"
   },

@@ -1,5 +1,5 @@
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://admin-jhedai.edison-985.workers.dev";
+  import.meta.env.VITE_API_URL || "https://jhedai-api.edison-985.workers.dev";
 
 // localStorage cache with TTL
 const localCache = {
