@@ -5,7 +5,7 @@
 
 const CONTACT_API_URL =
   import.meta.env.VITE_CONTACT_API_URL ||
-  "https://admin-jhedai.edison-985.workers.dev";
+  "https://jhedai-api.edison-985.workers.dev";
 
 export interface ContactFormData {
   nombre: string;
