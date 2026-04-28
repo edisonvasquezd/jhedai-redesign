@@ -1,3 +1,6 @@
+# Migration script output (large files, not for repo)
+scripts/output/
+
 # Logs
 logs
 *.log

@@ -109,7 +109,7 @@ const phases: Phase[] = [
 
 const solutions = [
   {
-    icon: <Brain size={32} />,
+    icon: <Brain size={20} />,
     title: "Análisis de Datos y Machine Learning",
     gradient: "from-blue-500 to-cyan-500",
     items: [
@@ -118,7 +118,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Eye size={32} />,
+    icon: <Eye size={20} />,
     title: "Computer Vision",
     gradient: "from-cyan-500 to-blue-600",
     items: [
@@ -127,7 +127,7 @@ const solutions = [
     ],
   },
   {
-    icon: <MessageSquare size={32} />,
+    icon: <MessageSquare size={20} />,
     title: "IA Conversacional y NLP",
     gradient: "from-blue-600 to-indigo-600",
     items: [
@@ -136,7 +136,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Bot size={32} />,
+    icon: <Bot size={20} />,
     title: "Agentes Autónomos",
     gradient: "from-indigo-500 to-purple-600",
     items: [
@@ -145,7 +145,7 @@ const solutions = [
     ],
   },
   {
-    icon: <Zap size={32} />,
+    icon: <Zap size={20} />,
     title: "Automatización Inteligente",
     gradient: "from-violet-500 to-fuchsia-600",
     items: [
@@ -154,7 +154,7 @@ const solutions = [
     ],
   },
   {
-    icon: <PieChart size={32} />,
+    icon: <PieChart size={20} />,
     title: "Business Intelligence",
     gradient: "from-green-500 to-emerald-500",
     items: [
@@ -163,7 +163,7 @@ const solutions = [
     ],
   },
   {
-    icon: <FlaskConical size={32} />,
+    icon: <FlaskConical size={20} />,
     title: "I+D y Laboratorio de Innovación",
     gradient: "from-purple-500 to-pink-500",
     items: [
@@ -247,139 +247,13 @@ const MetodologiaPage = () => {
             </p>
           </motion.div>
 
-          {/* Tril Diagram - Visual Triangle */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-3xl mx-auto mb-16"
-          >
-            <div className="relative bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-8 lg:p-12 border border-jhedai-neutral/20">
-              <svg
-                viewBox="0 0 600 480"
-                className="w-full h-auto"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Triangle outline */}
-                <motion.path
-                  d="M300 60 L520 400 L80 400 Z"
-                  fill="none"
-                  stroke="url(#trilGradient)"
-                  strokeWidth="2.5"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.5, delay: 0.3 }}
-                />
-
-                {/* Inner connecting lines */}
-                <motion.line
-                  x1="300" y1="60" x2="300" y2="400"
-                  stroke="#00A9E0" strokeWidth="1" strokeDasharray="6 4" opacity="0.3"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.8 }}
-                />
-                <motion.line
-                  x1="190" y1="230" x2="410" y2="230"
-                  stroke="#00A9E0" strokeWidth="1" strokeDasharray="6 4" opacity="0.3"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 1 }}
-                />
-
-                {/* Gradient def */}
-                <defs>
-                  <linearGradient id="trilGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#003865" />
-                    <stop offset="50%" stopColor="#00A9E0" />
-                    <stop offset="100%" stopColor="#FF585D" />
-                  </linearGradient>
-                </defs>
-
-                {/* Phase 1 - Top (Diagnóstico) */}
-                <motion.g
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <circle cx="300" cy="60" r="32" fill="#003865" />
-                  <text x="300" y="56" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">01</text>
-                  <text x="300" y="70" textAnchor="middle" fill="white" fontSize="7" fontWeight="500">DIAGNÓSTICO</text>
-                  <text x="300" y="110" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Diagnóstico</text>
-                  <text x="300" y="124" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Estratégico</text>
-                </motion.g>
-
-                {/* Phase 2 - Left middle (Capacitación) */}
-                <motion.g
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7 }}
-                >
-                  <circle cx="160" cy="300" r="32" fill="#00A9E0" />
-                  <text x="160" y="296" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">02</text>
-                  <text x="160" y="310" textAnchor="middle" fill="white" fontSize="6.5" fontWeight="500">CAPACITACIÓN</text>
-                  <text x="90" y="350" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Capacitación y</text>
-                  <text x="90" y="364" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Transferencia</text>
-                </motion.g>
-
-                {/* Phase 3 - Right middle (KPIs) */}
-                <motion.g
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.9 }}
-                >
-                  <circle cx="440" cy="300" r="32" fill="#00A9E0" />
-                  <text x="440" y="296" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">03</text>
-                  <text x="440" y="310" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="500">KPIs</text>
-                  <text x="510" y="350" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Oportunidades</text>
-                  <text x="510" y="364" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">y KPI</text>
-                </motion.g>
-
-                {/* Phase 4 - Bottom center (Implementación) */}
-                <motion.g
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1.1 }}
-                >
-                  <circle cx="300" cy="400" r="32" fill="#FF585D" />
-                  <text x="300" y="395" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">04</text>
-                  <text x="300" y="409" textAnchor="middle" fill="white" fontSize="6" fontWeight="500">IMPLEMENTACIÓN</text>
-                  <text x="300" y="450" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">Implementación</text>
-                  <text x="300" y="464" textAnchor="middle" fill="#003865" fontSize="11" fontWeight="600">de Soluciones</text>
-                </motion.g>
-
-                {/* Center label */}
-                <motion.g
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1.3 }}
-                >
-                  <text x="300" y="220" textAnchor="middle" fill="#00A9E0" fontSize="10" fontWeight="700" letterSpacing="3">METODOLOGÍA</text>
-                  <text x="300" y="240" textAnchor="middle" fill="#003865" fontSize="14" fontWeight="800">INTROGRESIVA</text>
-                </motion.g>
-              </svg>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Gráfica de Metodología */}
-        <div className="container pb-16">
+          {/* Gráfica de Metodología */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto"
+            className="mx-auto" style={{ maxWidth: "780px" }}
           >
             <img
               src="/grafica_metodologia.jpg"
@@ -387,7 +261,7 @@ const MetodologiaPage = () => {
               className="w-full h-auto rounded-2xl shadow-lg border border-jhedai-neutral/20"
             />
           </motion.div>
-        </div>
+        </div>{/* end container py-20 */}
 
         {/* Phases */}
         {phases.map((phase, i) => (
@@ -475,29 +349,25 @@ const MetodologiaPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: k * 0.1 }}
-                        className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-jhedai-neutral/20 hover:border-jhedai-secondary/30 transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+                        className="group relative bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border border-jhedai-neutral/20 hover:border-jhedai-secondary/30 transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
                       >
                         <div
                           className={`absolute inset-0 bg-gradient-to-br ${sol.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                         />
 
                         <div className="relative z-10">
-                          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-jhedai-primary/10 to-jhedai-secondary/10 flex items-center justify-center text-jhedai-secondary mb-3 group-hover:scale-110 transition-transform duration-300">
                             {sol.icon}
                           </div>
-                          <h4 className="text-lg font-bold text-jhedai-primary mb-4 group-hover:text-jhedai-secondary transition-colors">
+                          <h4 className="text-sm font-bold text-jhedai-primary mb-2 group-hover:text-jhedai-secondary transition-colors leading-tight">
                             {sol.title}
                           </h4>
-                          <ul className="space-y-3">
+                          <ul className="space-y-1">
                             {sol.items.map((item, m) => (
                               <li
                                 key={m}
-                                className="flex items-start gap-3 text-[15px] text-jhedai-primary/60 leading-relaxed"
+                                className="text-xs text-jhedai-primary/60 leading-relaxed"
                               >
-                                <CheckCircle2
-                                  size={14}
-                                  className="text-jhedai-secondary shrink-0 mt-1"
-                                />
                                 {item}
                               </li>
                             ))}

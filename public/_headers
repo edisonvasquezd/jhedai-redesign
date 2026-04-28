@@ -10,8 +10,14 @@
 /vision/*
   Cache-Control: public, max-age=31536000, immutable
 
+/team/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /logos-partners/*
   Cache-Control: public, max-age=2592000
+
+/favicon*
+  Cache-Control: public, max-age=604800
 
 /sitemap.xml
   Cache-Control: public, max-age=3600

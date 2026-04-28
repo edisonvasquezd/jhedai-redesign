@@ -264,11 +264,12 @@ const ContactoPage = () => {
                         </div>
                         <div>
                           <label className="text-[13px] font-medium text-jhedai-primary/70 mb-1.5 block">
-                            Teléfono
+                            Teléfono <span className="text-jhedai-accent">*</span>
                           </label>
                           <input
                             type="tel"
                             name="telefono"
+                            required
                             placeholder="+56 9 1234 5678"
                             className={inputClasses}
                           />
