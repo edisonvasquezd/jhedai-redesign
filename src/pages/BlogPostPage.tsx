@@ -101,9 +101,8 @@ const BlogPostPage = () => {
           ...(post.author.bio ? { description: post.author.bio } : {}),
           ...(post.author.jobTitle ? { jobTitle: post.author.jobTitle } : {}),
           ...(post.author.url ? { url: post.author.url } : {}),
-          ...(post.author.sameAs.length > 0
-            ? { sameAs: post.author.sameAs }
-            : {}),
+          ...(post.author.sameAs.length > 0 ? { sameAs: post.author.sameAs } : {}),
+          ...(post.author.avatar ? { image: { "@type": "ImageObject", url: post.author.avatar } } : {}),
         }
       : {
           "@type": "Organization" as const,
@@ -135,6 +134,8 @@ const BlogPostPage = () => {
     abstract: post.excerpt,
     articleSection: post.category,
     inLanguage: "es-CL",
+    isAccessibleForFree: true,
+    about: [{ "@type": "Thing", name: post.category }],
     keywords: post.tags.join(", "),
     author: {
       ...authorLd,
