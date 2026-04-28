@@ -1,7 +1,18 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import HeroTorus from "./HeroTorus";
+
+const HeroTorus = lazy(
+  () =>
+    new Promise<{ default: React.ComponentType }>((resolve) => {
+      if (typeof requestIdleCallback !== "undefined") {
+        requestIdleCallback(() => resolve(import("./HeroTorus")));
+      } else {
+        setTimeout(() => resolve(import("./HeroTorus")), 200);
+      }
+    }),
+);
 
 const partners: { name: string; logo: string; size?: "lg" | "xl" }[] = [
   {
@@ -71,7 +82,9 @@ const Hero = () => {
         transition={{ duration: 1.2, delay: 0.5 }}
         className="absolute inset-0 lg:left-[40%] opacity-30 lg:opacity-100 pointer-events-none z-[1] overflow-visible"
       >
-        <HeroTorus />
+        <Suspense fallback={null}>
+          <HeroTorus />
+        </Suspense>
       </motion.div>
 
       <div className="container relative z-10">

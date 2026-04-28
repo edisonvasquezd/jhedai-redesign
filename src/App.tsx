@@ -25,7 +25,7 @@ function App() {
 
   return (
     <Suspense fallback={<PageLoader />}>
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="sync" initial={false}>
         <Routes location={location} key={location.key}>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
