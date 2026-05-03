@@ -29,7 +29,6 @@ interface Service {
   benefits: string[];
   gradient: string;
   category: string;
-  flowType: "linear" | "branching" | "circular" | "hierarchical";
 }
 
 const services: Service[] = [
@@ -46,7 +45,6 @@ const services: Service[] = [
     ],
     gradient: "from-blue-500 via-cyan-500 to-blue-600",
     category: "Data",
-    flowType: "linear",
   },
   {
     id: "machine-learning",
@@ -61,7 +59,6 @@ const services: Service[] = [
     ],
     gradient: "from-purple-500 via-pink-500 to-red-500",
     category: "AI",
-    flowType: "branching",
   },
   {
     id: "business-intelligence",
@@ -76,7 +73,6 @@ const services: Service[] = [
     ],
     gradient: "from-green-500 via-emerald-500 to-teal-500",
     category: "Data",
-    flowType: "circular",
   },
   {
     id: "nlp",
@@ -91,7 +87,6 @@ const services: Service[] = [
     ],
     gradient: "from-orange-500 via-amber-500 to-yellow-500",
     category: "AI",
-    flowType: "linear",
   },
   {
     id: "computer-vision",
@@ -106,7 +101,6 @@ const services: Service[] = [
     ],
     gradient: "from-indigo-500 via-purple-500 to-pink-500",
     category: "AI",
-    flowType: "hierarchical",
   },
   {
     id: "automatizaciones",
@@ -121,7 +115,6 @@ const services: Service[] = [
     ],
     gradient: "from-cyan-500 via-blue-500 to-indigo-500",
     category: "Automation",
-    flowType: "branching",
   },
   {
     id: "data-science",
@@ -136,7 +129,6 @@ const services: Service[] = [
     ],
     gradient: "from-rose-500 via-red-500 to-orange-500",
     category: "Data",
-    flowType: "circular",
   },
 ];
 
@@ -332,10 +324,9 @@ const ServiciosPage = () => {
                       className="relative"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-jhedai-primary/5 to-jhedai-secondary/5 rounded-3xl blur-2xl" />
-                      <div className="relative glass-card p-12 lg:p-16 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm min-h-[400px] flex items-center justify-center">
+                      <div className="relative glass-card p-5 lg:p-8 rounded-3xl border-2 border-jhedai-neutral/20 bg-white/80 backdrop-blur-sm">
                         <ServiceFlowDiagram
-                          type={service.flowType}
-                          gradient={service.gradient}
+                          serviceId={service.id}
                         />
                       </div>
                     </motion.div>
